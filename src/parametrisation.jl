@@ -1,7 +1,7 @@
 using CompScienceMeshes
-export k2_cf
+export k2
 
-function k2_cf(u,v)
+function k2(u,v)
 	û = [1-u[1], u[2]]
 	v̂ = [1-v[1], v[2]]
 	n1 = neighborhood(testchart, û)
