@@ -8,6 +8,8 @@ Julia Implementation of the Sauter-Schwab quadrature rules
 
 [![codecov.io](http://codecov.io/github/ga96tik/SauterSchwabQuadrature.jl/coverage.svg?branch=master)](http://codecov.io/github/ga96tik/SauterSchwabQuadrature.jl?branch=master)
 
+[![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://ga96tik.github.io/BEAST.jl/latest/)
+
 # References
 
 [1] Sauter S., Schwab C. "Boundary Element Methods (Springer Series in Computational Mathematics)",  Springer, 2010.
