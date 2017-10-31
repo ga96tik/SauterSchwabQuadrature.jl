@@ -2,7 +2,7 @@ Julia Implementation of the Sauter-Schwab quadrature rules
 
 # SauterSchwabQuadrature
 
-![Build Status](https://travis-ci.org/ga96tik/SauterSchwabQuadrature.jl.svg?branch=master)
+[![Build Status](https://travis-ci.org/ga96tik/SauterSchwabQuadrature.jl.svg?branch=master)](https://travis-ci.org/ga96tik/SauterSchwabQuadrature.jl)
 
 [![Coverage Status](https://coveralls.io/repos/krcools/SauterSchwabQuadrature.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/krcools/SauterSchwabQuadrature.jl?branch=master)
 
