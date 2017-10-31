@@ -2,3 +2,10 @@ site_name: My Docs
 site_author: ga96tik
 site_description: Documentation for SauterSchwabQuadrature.jl
 repo_url: https://github.com/ga96tik/SauterSchwabQuadrature.jl
+
+markdown_extensions:
+    - mdx_math
+
+extra_javascript:
+    - https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML
+    - assets/mathjaxhelper.js

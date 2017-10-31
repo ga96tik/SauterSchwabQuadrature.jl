@@ -23,7 +23,7 @@ function k(α,β,γ)
 			yII = cartesian(n2)
 			yIII = cartesian(n3)
 
-			return(kernel(x̂,yI)*jacobian(n1)*(1-η) +
-					kernel(x̂,yII)*jacobian(n2)*(1-η) +
-					kernel(x̂,yIII)*jacobian(n3)*(1-η))
+			return(Kernel(x̂,yI)*jacobian(n1)*(1-η) +
+					Kernel(x̂,yII)*jacobian(n2)*(1-η) +
+					Kernel(x̂,yIII)*jacobian(n3)*(1-η))
 end

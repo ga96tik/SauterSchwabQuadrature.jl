@@ -7,7 +7,7 @@ include("verificationintegral.jl")
 pI = point(1,5,3)
 pII = point(2,5,3)
 pIII = point(7,1,0)
-chart = simplex(pI, pII, pIII)
+Sourcechart = Testchart = simplex(pI, pII, pIII)
 
 function kernel(x,y)
 			pI = point(1,5,3)
@@ -15,7 +15,9 @@ function kernel(x,y)
 			return(((x-pI)'*(y-pII))*exp(-im*1*norm(x-y))/(4pi*norm(x-y)))	#k=1
 end
 
-result = verifintegral1(chart, kernel) -
-	sauterschwabintegral(chart, kernel)
+cf = CommonFace(12)
+
+result = verifintegral1(Sourcechart, Testchart, kernel, cf) -
+	sauterschwabintegral(Sourcechart, Testchart, kernel, cf)
 
 @test norm(result) < 1.e-3

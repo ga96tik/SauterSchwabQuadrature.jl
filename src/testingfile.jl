@@ -20,9 +20,11 @@ function kernel(x,y)
 			return(((x-pI)'*(y-pII))*exp(-im*1*norm(x-y))/(4pi*norm(x-y)))	#k=1
 end
 
-chart = simplex(pI, pII, pIII)
+Sourcechart = Testchart = simplex(pI, pII, pIII)
 
-result = sauterschwabintegral(chart, kernel)
+cf = CommonFace(12)
+
+result = sauterschwabintegral(Sourcechart, Testchart, kernel, cf)
 
 
 
@@ -37,7 +39,7 @@ end
 Sourcechart = simplex(pI,pIII,pII)
 Testchart = simplex(pI,pIV,pII)
 
-ce = common_edge()
+ce = CommonEdge(12)
 
 result = sauterschwabintegral(Sourcechart, Testchart, kernel, ce)
 
@@ -55,7 +57,7 @@ end
 Sourcechart = simplex(pI,pIII,pII)
 Testchart = simplex(pI,pIV,pV)
 
-cv = common_vertex()
+cv = CommonVertex(12)
 
 result = sauterschwabintegral(Sourcechart, Testchart, kernel, cv)
 
@@ -73,6 +75,6 @@ end
 Sourcechart = simplex(pI,pII,pIII)
 Testchart = simplex(pVI,pVII,pVIII)
 
-pd = positive_distance()
+pd = PositiveDistance(12)
 
 result = sauterschwabintegral(Sourcechart, Testchart, kernel, pd)

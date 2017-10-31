@@ -18,7 +18,7 @@ end
 
 Sourcechart = simplex(pI,pIII,pII)
 Testchart = simplex(pI,pIV,pV)
-cv = common_vertex()
+cv = CommonVertex(12)
 
 result = sauterschwabintegral(Sourcechart, Testchart, kernel, cv) -
 		verifintegral2(Sourcechart, Testchart, kernel, cv)

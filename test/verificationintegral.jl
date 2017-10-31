@@ -3,20 +3,21 @@ using SauterSchwabQuadrature
 
 include("parametrisation.jl")
 
-function verifintegral1(Chart, Kernel)
+function verifintegral1(sourcechart, testchart, kernel, ::Any)
 
-	global kernel, chart, p0, p1, p2
+	global Kernel, Sourcechart, Testchart, p0, p1, p2
 
-	chart = Chart
-	kernel = Kernel
+	Sourcechart = sourcechart
+	Testchart = testchart
+	Kernel = kernel
 
-	p0 = chart.vertices[1]
-	p1 = chart.vertices[2]
-	p2 = chart.vertices[3]
+	p0 = Sourcechart.vertices[1]
+	p1 = Sourcechart.vertices[2]
+	p2 = Sourcechart.vertices[3]
 
 	acc = 12							#accuracy
 
-	qps1 = quadpoints(chart, acc)
+	qps1 = quadpoints(Sourcechart, acc)
 
 	path = simplex(point(0), point(1))
 	qps2 = quadpoints(path, acc)
@@ -29,20 +30,20 @@ end
 
 
 
-function verifintegral2(Sourcechart, Testchart, Kernel, ::Any)
+function verifintegral2(sourcechart, testchart, kernel, accuracy::Any)
 
-	global kernel, testchart, sourcechart
+	global Kernel, Testchart, Sourcechart
 
-	sourcechart = Sourcechart
-	testchart = Testchart
-	kernel = Kernel
+	Sourcechart = sourcechart
+	Testchart = testchart
+	Kernel = kernel
 
-	acc = 12								#accuracy
+	Accuracy = accuracy
 
-	qps1 = quadpoints(sourcechart, acc)
-	qps2 = quadpoints(testchart, acc)
+	qps1 = quadpoints(Sourcechart, Accuracy.acc)
+	qps2 = quadpoints(Testchart, Accuracy.acc)
 
-	result = sum(w2*w1*kernel(cartesian(x),cartesian(y))
+	result = sum(w2*w1*Kernel(cartesian(x),cartesian(y))
 				for (x,w2) in qps2, (y,w1) in qps1)
 
 	return (result)
