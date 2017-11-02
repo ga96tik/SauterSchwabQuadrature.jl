@@ -15,7 +15,7 @@ extra_css:
   - assets/Documenter.css
 
 extra_javascript:
-  #- https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/config/Accessible-full.js
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/config/Accessible-full.js
   - assets/mathjaxhelper.js
 
 docs_dir: 'build'
