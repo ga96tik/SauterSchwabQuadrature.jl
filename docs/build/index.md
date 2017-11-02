@@ -45,5 +45,5 @@ $$
 f(x) is a super duper cool function
 
 
-<a target='_blank' href='https://github.com/ga96tik/SauterSchwabQuadrature.jl/tree/05ef55bbe67c88e59a8cda62f01410a2e0ef03b8/src/f.jl#L4-L6' class='documenter-source'>source</a><br>
+<a target='_blank' href='https://github.com/ga96tik/SauterSchwabQuadrature.jl/tree/d1a0975fe1f96e96777df19c4d61f7fe4d849c6e/src/f.jl#L4-L6' class='documenter-source'>source</a><br>
 
