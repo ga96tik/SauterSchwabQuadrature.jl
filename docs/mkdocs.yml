@@ -2,7 +2,7 @@ site_name:           SauterSchwabQuadrature
 repo_url:            https://github.com/ga96tik/SauterSchwabQuadrature.jl
 site_description:    Description for SauterSchwabQuadrature
 site_author:         ga96tik
-
+theme:               readthedocs
 
 markdown_extensions:
   - codehilite
@@ -15,11 +15,11 @@ extra_css:
   - assets/Documenter.css
 
 extra_javascript:
-  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/config/Accessible-full.js
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML
   - assets/mathjaxhelper.js
 
 docs_dir: 'build'
 
 pages:
-- Introduction: index.md
+- Home: index.md
 - Tutorials: test.md
