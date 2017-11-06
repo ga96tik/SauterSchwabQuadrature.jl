@@ -53,7 +53,7 @@
     <a class="current" href=".">Home</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#sauterschwabquadraturejl-">SauterSchwabQuadrature.jl  :-)</a></li>
+    <li class="toctree-l2"><a href="#sauterschwabquadraturejl">SauterSchwabQuadrature.jl</a></li>
     
         <ul>
         
@@ -107,17 +107,54 @@
           <div role="main">
             <div class="section">
               
-                <p><a id='SauterSchwabQuadrature.jl-:-)-1'></a></p>
-<h1 id="sauterschwabquadraturejl-">SauterSchwabQuadrature.jl  :-)</h1>
+                <p><a id='SauterSchwabQuadrature.jl-1'></a></p>
+<h1 id="sauterschwabquadraturejl">SauterSchwabQuadrature.jl</h1>
 <p>This package can be used to solve problems of following type:</p>
 <p>
 <script type="math/tex; mode=display">
-t(\vt{k},\vt{j}) = \frac{1}{ik} \int_{\Gamma} \int_{\Gamma'} \nabla \cdot \vt{k}(x) \nabla \cdot \vt{j}(y) \frac{e^{-ik|x-y|}}{4\pi|x-y|} dy dx - ik \int_{\Gamma} \int_{\Gamma'} \vt{k}(x) \cdot \vt{j}(y) \frac{e^{-ik|x-y|}}{4\pi|x-y|} dy dx
+\int_{\Gamma}\int_{\Gamma'}b_i(\textbf{x})\,k(\textbf{x},\textbf{y})\, b_j(\textbf{y})\;da_\textbf{y}\,da_\textbf{x}
 </script>
 </p>
-<p>The above integral is a double area-integral over two triangles <code>Γ1</code> and <code>Γ2</code>. The integrand consists of two basisfunctions <code>b_i(x)</code> and <code>b_j(y)</code> and the kernel <code>G(x,y)</code>.   </p>
-<p>This kind of integral often appears in the area of Boundary Element Methods for solving elliptic partial differential equations and can be interpretated as the interaction of the two basisfunctions on their respective triangles.</p>
-<p>As the solving algorithm works for a wide range of basisfunctions and kernels, all the conditions for the kernel, basisfunctions and the integration areas will be given:  </p>
+<p>The above expression is a double area-integral over two flat triangles $\Gamma$ and $\Gamma'$ in 3D Space. The integrand consists of two basisfunctions $b_i(\textbf{x})$ and $b_i(\textbf{y})$ and the kernel $k(\textbf{x},\textbf{y})$.   </p>
+<p>This kind of integral often appears in the area of Boundary Element Methods for solving elliptic partial differential equations, and can be interpretated as the interaction of the two basisfunctions on their respective triangles. Therefore in this package the two triangles are called test- and sourcecell, and the same goes for the two basefunctions, they are called test- and sourcefunction. The triangles correspond to the cells of a meshed surface.</p>
+<p>As the solving algorithm works for a wide range of basisfunctions and kernels, all the requirements for the kernel, basisfunctions and the integration areas will be given:</p>
+<ol>
+<li>
+<p>Requiremts for the triangles:</p>
+</li>
+<li>
+<p>The triangles must be flat and are created by three vertices</p>
+</li>
+<li>
+<p>The triangles must be either the same, or have two vertices in common, or have one vertex in common or they do not touch at all; A partial overlap is forbidden</p>
+</li>
+<li>
+<p>Requirements for the basisfunctions:</p>
+</li>
+<li>
+<p>The basisfunctions must be real and non singular on their respective triangles</p>
+</li>
+<li>
+<p>The basisfunctions map vectors on scalars</p>
+</li>
+<li>
+<p>The kernel must be Cauchy-Singular</p>
+</li>
+</ol>
+<p>According to item 1, four different constellations of the two triangles are possible:</p>
+<ul>
+<li>Equal triangles $\to$ Common Face</li>
+<li>Two vertices in common $\to$ Common Edge</li>
+<li>One vertex in commmon $\to$ Common Vertex</li>
+<li>Both triangles do not touch at all $\to$ Positive Distance</li>
+</ul>
+<p>As each of those four constellations has its own integration method (because of a possible singularity in the kernel), every single method will be investigated in this documentation. However, in all four cases the called function will look like:</p>
+<div class="codehilite"><pre><span></span>sauterschwabintegral(sourcechart, testchart, kernel, method)
+</pre></div>
+
+
+<p><code>Sourcechart</code> and <code>Testchart</code> are the mappings from a reference triangle to the real triangles in space, they contain the information of the positions of both triangles. <code>kernel</code> is the integrand and <code>method</code> is a object of a particular type which conveys the function the method of integration and additionally it contains information of how accurate the integration shall be done.</p>
+<p>As this package depends on CompScienceMeshes, it is useful to know about that package, at least about the function <code>simplex</code>.</p>
 <p><a id='Subtitle-1'></a></p>
 <h2 id="subtitle">Subtitle</h2>
 <p>Hello</p>
@@ -129,7 +166,7 @@ t(\vt{k},\vt{j}) = \frac{1}{ik} \int_{\Gamma} \int_{\Gamma'} \nabla \cdot \vt{k}
 <p><a id='SauterSchwabQuadrature.f-Tuple{Any}' href='#SauterSchwabQuadrature.f-Tuple{Any}'>#</a>
 <strong><code>SauterSchwabQuadrature.f</code></strong> &mdash; <em>Method</em>.</p>
 <p>f(x) is a super duper cool function</p>
-<p><a target='_blank' href='https://github.com/ga96tik/SauterSchwabQuadrature.jl/blob/42793c4359df9b564bb517682adcfde874abe641/src/f.jl#L4-L6' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/ga96tik/SauterSchwabQuadrature.jl/blob/fe38aebc24919447d80cac5dd6416c69c0979fba/src/f.jl#L4-L6' class='documenter-source'>source</a><br></p>
               
             </div>
           </div>
@@ -183,5 +220,5 @@ t(\vt{k},\vt{j}) = \frac{1}{ik} \int_{\Gamma} \int_{\Gamma'} \nabla \cdot \vt{k}
 
 <!--
 MkDocs version : 0.17.1
-Build Date UTC : 2017-11-03 12:17:19
+Build Date UTC : 2017-11-06 17:52:19
 -->
