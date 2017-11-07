@@ -12,12 +12,12 @@ struct PositiveDistance <:Any	acc::Int64		end
 
 
 
-function sauterschwabintegral(sourcechart, testchart, kernel, accuracy::CommonFace)
+function sauterschwabintegral(sourcechart, testchart, integrand, accuracy::CommonFace)
 
 	global Sourcechart, Testchart, Kernel
 	Sourcechart = sourcechart
 	Testchart = testchart
-	Kernel = kernel
+	Kernel = integrand
 
 	if Testchart == Sourcechart
 		nothing
@@ -42,14 +42,14 @@ end
 
 
 
-function sauterschwabintegral(sourcechart, testchart, kernel, accuracy::CommonEdge)
+function sauterschwabintegral(sourcechart, testchart, integrand, accuracy::CommonEdge)
 
 #Sourcechart and Testchart must have been generated in the following manner:
 #Sourcechart = simplex(a,b,c);	Testchart = simplex(a,b',c)
 #First and third entry of both charts must be equal
 
 	global Kernel, Sourcechart, Testchart
-	Kernel = kernel
+	Kernel = integrand
 	Sourcechart = sourcechart		#sourcetriangle t
 	Testchart = testchart			#testtriangle τ
 
@@ -69,14 +69,14 @@ end
 
 
 
-function sauterschwabintegral(sourcechart, testchart, kernel, accuracy::CommonVertex)
+function sauterschwabintegral(sourcechart, testchart, integrand, accuracy::CommonVertex)
 
 #Sourcechart and Testchart must have been generated in the following manner:
 #Sourcechart = simplex(a,b,c);	Testchart = simplex(a,b',c')
 #First entry of both charts must be equal
 
 	global Kernel, Sourcechart, Testchart
-	Kernel = kernel
+	Kernel = integrand
 	Sourcechart = sourcechart		#sourcetriangle t
 	Testchart = testchart			#testtriangle τ
 
@@ -96,12 +96,12 @@ end
 
 
 
-function sauterschwabintegral(sourcechart, testchart, kernel, accuracy::PositiveDistance)
+function sauterschwabintegral(sourcechart, testchart, integrand, accuracy::PositiveDistance)
 
 #The intersection of testtriangle and sourcetriangle must be 0!
 
 	global Kernel, Sourcechart, Testchart
-	Kernel = kernel
+	Kernel = integrand
 	Sourcechart = sourcechart		#sourcetriangle t
 	Testchart = testchart			#testtriangle τ
 

@@ -3,13 +3,13 @@ using SauterSchwabQuadrature
 
 include("parametrisation.jl")
 
-function verifintegral1(sourcechart, testchart, kernel, ::Any)
+function verifintegral1(sourcechart, testchart, integrand, ::Any)
 
 	global Kernel, Sourcechart, Testchart, p0, p1, p2
 
 	Sourcechart = sourcechart
 	Testchart = testchart
-	Kernel = kernel
+	Kernel = integrand
 
 	p0 = Sourcechart.vertices[1]
 	p1 = Sourcechart.vertices[2]
@@ -30,13 +30,13 @@ end
 
 
 
-function verifintegral2(sourcechart, testchart, kernel, accuracy::Any)
+function verifintegral2(sourcechart, testchart, integrand, accuracy::Any)
 
 	global Kernel, Testchart, Sourcechart
 
 	Sourcechart = sourcechart
 	Testchart = testchart
-	Kernel = kernel
+	Kernel = integrand
 
 	Accuracy = accuracy
 

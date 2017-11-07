@@ -7,6 +7,5 @@ using CompScienceMeshes
 include("k3.jl")
 include("parametrisation.jl")
 include("sauterschwabintegral.jl")
-include("f.jl")
 
 end
