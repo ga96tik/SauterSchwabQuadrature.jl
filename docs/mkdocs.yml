@@ -22,4 +22,3 @@ docs_dir: 'build'
 
 pages:
 - Home: index.md
-- Tutorials: test.md
