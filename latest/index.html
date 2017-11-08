@@ -59,15 +59,16 @@
         
             <li><a class="toctree-l3" href="#common-face">Common Face</a></li>
         
+            <li><a class="toctree-l3" href="#common-edge">Common Edge</a></li>
+        
+            <li><a class="toctree-l3" href="#common-vertex">Common Vertex</a></li>
+        
+            <li><a class="toctree-l3" href="#positive-distance">Positive Distance</a></li>
+        
         </ul>
     
 
     </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="test/">Tutorials</a>
 	    </li>
           
         </ul>
@@ -114,12 +115,12 @@
 </script>
 </p>
 <p>The above expression is a double area-integral over two flat triangles $\Gamma$ and $\Gamma'$ in 3D Space. The integrand consists of two basisfunctions $b_i(\textbf{x})$ and $b_i(\textbf{y})$ and the kernel $k(\textbf{x},\textbf{y})$.   </p>
-<p>This kind of integral often appears in the area of Boundary Element Methods for solving elliptic partial differential equations, and can be interpretated as the interaction of the two basisfunctions on their respective triangles. Therefore in this package the two triangles are called test- and sourcecell, and the same goes for the two basefunctions, they are called test- and sourcefunction. The triangles correspond to the cells of a meshed surface.</p>
+<p>This kind of integral often appears in the area of Boundary Element Method for solving elliptic partial differential equations, and can be interpretated as the interaction of the two basisfunctions with respect to their triangles. For this reason in this package the two triangles are called test- and sourcecell, and the same goes for the two basefunctions, they are called test- and sourcefunction. The triangles correspond to the cells of a meshed surface.</p>
 <p>As the solving algorithm works for a wide range of basisfunctions and kernels, all the requirements for the kernel, basisfunctions and the integration areas will be given:</p>
 <p>1.Requirements for the triangles:</p>
 <ul>
 <li>The triangles must be flat and are created by three vertices</li>
-<li>The triangles must be either the same, or have two vertices in common, or have one vertex in common or they do not touch at all; A partial overlap is forbidden</li>
+<li>The triangles must be either the same, have two vertices in common, have one vertex in common or do not touch at all; A partial overlap is forbidden</li>
 </ul>
 <p>2.Requirements for the basisfunctions:</p>
 <ul>
@@ -134,82 +135,58 @@
 <li>One vertex in commmon $\to$ Common Vertex</li>
 <li>Both triangles do not touch at all $\to$ Positive Distance</li>
 </ul>
-<p>As each of those four constellations has its own integration method (because of a possible singularity in the kernel), every single case will be presented using an example. However, in all four cases the called function will look like:</p>
-<div class="codehilite"><pre><span></span>sauterschwabintegral(sourcechart, testchart, integrand, constellation)
-</pre></div>
-
-
-<p><code>sourcechart</code> and <code>testchart</code> are the mappings from a reference triangle to the real triangles in space, they contain the information of the positions of both triangles. <code>integrand</code> is the integrand and <code>constellation</code> is a object of a particular type which conveys the function the method of integration and additional information of how accurate the integration shall be done.</p>
-<p>As this package depends on CompScienceMeshes, it is useful to know about that package, at least about the functions <code>simplex()</code> and <code>point()</code>.</p>
-<p>This documentation does not derive the integration rules and how the integration is done, it only shows how to handle this package. If the user wants to know more about how this package operates, he has to go inside the src folder and look up for the book in the README file.</p>
+<p>As each of those four constellations has its own integration method (because of a possible singularity in the kernel), every single case will be presented. However, in all four cases the called function will look like:</p>
+<p><code>sauterschwabintegral(sourcechart, testchart, integrand, constellation)</code>.</p>
+<p><code>sourcechart</code> and <code>testchart</code> are the mappings from a reference triangle (parametrisation) to the real triangles in space, they contain the information of the positions of both triangles. <code>integrand</code> is the integrand and <code>constellation</code> is a object of a particular type which conveys the function the method of integration and additional information of how accurate the integration shall be done.</p>
+<p>As this package depends on the package 'CompScienceMeshes', it is useful to be familiar with that package, at least with the functions <code>simplex()</code> and <code>point()</code>.</p>
+<p>This documentation does not derive the integration rules, and how the integration is done, it only shows how to handle this package. If the user wants to know more about how this package operates, he has to go inside the src folder and look up for the book in the README file.</p>
 <p><a id='Common-Face-1'></a></p>
 <h2 id="common-face">Common Face</h2>
 <p>$\Gamma$ and $\Gamma'$ are equal, hence <code>sourcechart</code> and <code>testchart</code> are equal as well. The two charts can be created by</p>
-<div class="codehilite"><pre><span></span>testchart = sourcechart = simplex(P1,P2,P3)
- ```
- , where `P1`, `P2` and `P3` are the vertices of that particular triangle. Note that both charts must be equal, that means that the first argument of both charts must be euqal, the second argument of both charts must be euqal, and the last argument of both charts must be equal. For instance `sourcechart = simplex(P1,P2,P3)` and  `testchart = simplex(P1,P3,P2)` will not work because of the different orders of the input arguments.
-
- The `integrand` must be defined as a function and its function name is the input argument.
-
- The last argument can be created by
-</pre></div>
-
-
-<p>cf = CommonFace(x)</p>
-<div class="codehilite"><pre><span></span>. `cf` is an object of type `CommonFace()`, x is an integer which stands for the degree of accuracy. The larger x is, the more accurate the evaluation will be.
-
-An example of this case can be found and run in the example folder.
-
-
-## Common Edge
-
-$\Gamma$ and $\Gamma&#39;$ are now different, hence `sourcechart` and `testchart` are different as well. The two charts have to be created in the following manner:
-</pre></div>
-
-
-<p>testchart = simplex(P1,P2,P3) sourcechart = simplex(P1,P4,P3)</p>
-<div class="codehilite"><pre><span></span><span class="na">.Again</span> <span class="no">the</span> <span class="no">order</span> <span class="no">of</span> <span class="no">the</span> <span class="no">input</span> <span class="no">arguments</span> <span class="no">must</span> <span class="no">be</span> <span class="no">taken</span> <span class="no">into</span> <span class="no">account</span><span class="p">:</span> <span class="no">The</span> <span class="no">first</span> <span class="no">argument</span> <span class="no">of</span> <span class="no">both</span> <span class="no">charts</span> <span class="no">must</span> <span class="no">be</span> <span class="no">equal</span><span class="p">,</span> <span class="no">and</span> <span class="no">the</span> <span class="no">last</span> <span class="no">argument</span> <span class="no">of</span> <span class="no">both</span> <span class="no">charts</span> <span class="no">must</span> <span class="no">be</span> <span class="no">equal.</span> <span class="no">Consequently</span> <span class="no">the</span> <span class="no">first</span> <span class="no">and</span> <span class="no">the</span> <span class="no">last</span> <span class="no">argument</span> <span class="no">are</span> <span class="no">the</span> <span class="no">vertices</span> <span class="no">which</span> <span class="no">both</span> <span class="no">triangles</span> <span class="no">have</span> <span class="no">in</span> <span class="no">common.</span>
-
-  <span class="nf">The</span> <span class="err">`</span><span class="no">integrand</span><span class="err">`</span> <span class="no">must</span> <span class="no">be</span> <span class="no">defined</span> <span class="no">as</span> <span class="no">a</span> <span class="no">function</span> <span class="no">and</span> <span class="no">its</span> <span class="no">function</span> <span class="no">name</span> <span class="no">is</span> <span class="no">the</span> <span class="no">input</span> <span class="no">argument.</span>
-
- <span class="nf">The</span> <span class="no">last</span> <span class="no">argument</span> <span class="no">can</span> <span class="no">be</span> <span class="no">created</span> <span class="no">by</span>
-</pre></div>
-
-
-<p>ce = CommonEdge(x)</p>
-<div class="codehilite"><pre><span></span>. `ce` is an object of type `CommonEdge()`, x is an integer which stands for the degree of accuracy. The larger x is, the more accurate the evaluation will be.
-
-An example of this case can be found and run in the example folder.
-
-
-# Common Vertex
-
-The two triangles and charts are again different. The two charts have to be created in the following manner:
-</pre></div>
-
-
-<p>sourcechart = simplex(P1,P2,P3) testchart = simplex(P1,P4,P5)</p>
-<div class="codehilite"><pre><span></span><span class="na">.Again</span> <span class="no">the</span> <span class="no">order</span> <span class="no">of</span> <span class="no">the</span> <span class="no">input</span> <span class="no">arguments</span> <span class="no">must</span> <span class="no">be</span> <span class="no">taken</span> <span class="no">into</span> <span class="no">account</span><span class="p">:</span> <span class="no">The</span> <span class="no">first</span> <span class="no">argument</span> <span class="no">of</span> <span class="no">both</span> <span class="no">charts</span> <span class="no">must</span> <span class="no">be</span> <span class="no">equal</span><span class="p">,</span> <span class="no">the</span> <span class="no">order</span> <span class="no">of</span> <span class="err">`</span><span class="no">P2</span><span class="err">`</span> <span class="no">and</span> <span class="err">`</span><span class="no">P3</span><span class="err">`</span> <span class="no">with</span> <span class="no">respect</span> <span class="no">to</span> <span class="err">`</span><span class="no">sourcechart</span><span class="err">`</span> <span class="no">and</span> <span class="no">the</span> <span class="no">order</span> <span class="no">of</span> <span class="err">`</span><span class="no">P4</span><span class="err">`</span> <span class="no">and</span> <span class="err">`</span><span class="no">P5</span><span class="err">`</span> <span class="no">with</span> <span class="no">respect</span> <span class="no">to</span> <span class="err">`</span><span class="no">testchart</span><span class="err">`</span> <span class="no">does</span> <span class="no">not</span> <span class="no">matter.</span>  <span class="no">Consequently</span><span class="p">,</span> <span class="no">the</span> <span class="no">first</span> <span class="no">argument</span> <span class="no">is</span> <span class="no">the</span> <span class="no">vertex</span> <span class="no">both</span> <span class="no">triangles</span> <span class="no">have</span> <span class="no">in</span> <span class="no">common.</span>
-
-<span class="nf">The</span> <span class="err">`</span><span class="no">integrand</span><span class="err">`</span> <span class="no">must</span> <span class="no">be</span> <span class="no">defined</span> <span class="no">as</span> <span class="no">a</span> <span class="no">function</span> <span class="no">and</span> <span class="no">its</span> <span class="no">function</span> <span class="no">name</span> <span class="no">is</span> <span class="no">the</span> <span class="no">input</span> <span class="no">argument.</span>
-
-<span class="nf">The</span> <span class="no">last</span> <span class="no">argument</span> <span class="no">can</span> <span class="no">be</span> <span class="no">created</span> <span class="no">by</span>
-</pre></div>
-
-
-<p>cv = CommonVertex(x) <code>``.</code>cv<code>is an object of type</code>CommonVertex()`, x is an integer which stands for the degree of accuracy. The larger x is, the more accurate the evaluation will be.</p>
+<p><code>testchart = sourcechart = simplex(P1,P2,P3)</code></p>
+<p>, where <code>P1</code>, <code>P2</code> and <code>P3</code> are the vertices of that particular triangle. Note that both charts must be equal, that means that the first argument of both charts must be euqal, the second argument of both charts must be equal, and the last argument of both charts must be equal. For instance <code>sourcechart = simplex(P1,P2,P3)</code> and  <code>testchart = simplex(P1,P3,P2)</code> will not work because of the different orders of the input arguments.</p>
+<p>The <code>integrand</code> must be defined as a function and its function name is the input argument.</p>
+<p>The last argument can be created by</p>
+<p><code>cf = CommonFace(x)</code>.</p>
+<p><code>cf</code> is an object of type <code>CommonFace()</code>, x is an integer which stands for the degree of accuracy. The larger x is, the more accurate the evaluation will be.</p>
+<p>An example of this case can be found and run in the example folder.</p>
+<p><a id='Common-Edge-1'></a></p>
+<h2 id="common-edge">Common Edge</h2>
+<p>
+<script type="math/tex; mode=display">
+\Gamma
+</script>
+</p>
+<p>and $\Gamma'$ are now different, hence <code>sourcechart</code> and <code>testchart</code> are different as well. The two charts have to be created in the following manner:</p>
+<p><code>testchart = simplex(P1,P2,P3); sourcechart = simplex(P1,P4,P3)</code>.</p>
+<p>Again the order of the input arguments must be taken into account: The first argument of both charts must be equal, and the last argument of both charts must be equal. Consequently the first and the last argument are the vertices which both triangles have in common.</p>
+<p>The <code>integrand</code> must be defined as a function and its function name is the input argument.</p>
+<p>The last argument can be created by</p>
+<p><code>ce = CommonEdge(x)</code>.</p>
+<p><code>ce</code> is an object of type <code>CommonEdge()</code>, x is an integer which stands for the degree of accuracy. The larger x is, the more accurate the evaluation will be.</p>
+<p>An example of this case can be found and run in the example folder.</p>
+<p><a id='Common-Vertex-1'></a></p>
+<h2 id="common-vertex">Common Vertex</h2>
+<p>The two triangles and charts are again different. The two charts have to be created in the following manner:</p>
+<p><code>sourcechart = simplex(P1,P2,P3); testchart = simplex(P1,P4,P5)</code>.</p>
+<p>Again the order of the input arguments must be taken into account: The first argument of both charts must be equal, the order of <code>P2</code> and <code>P3</code> with respect to <code>sourcechart</code> and the order of <code>P4</code> and <code>P5</code> with respect to <code>testchart</code> does not matter.  Consequently, the first argument is the vertex both triangles have in common.</p>
+<p>The <code>integrand</code> must be defined as a function and its function name is the input argument.</p>
+<p>The last argument can be created by</p>
+<p><code>cv = CommonVertex(x)</code>.</p>
+<p><code>cv</code> is an object of type <code>CommonVertex()</code>, x is an integer which stands for the degree of accuracy. The larger x is, the more accurate the evaluation will be.</p>
+<p>An example of this case can be found and run in the example folder.</p>
+<p><a id='Positive-Distance-1'></a></p>
+<h2 id="positive-distance">Positive Distance</h2>
+<p>As the triangles do not touch at all, the integration becomes a simple quadrature. Therefore the order of arguments for the two <code>simplexfunction()</code>'s no longer matter.</p>
+<p>The <code>integrand</code> must be defined as a function and its function name is the input argument.</p>
+<p>The last argument can be created by</p>
+<p><code>pd = PositiveDistance(x)</code>.</p>
+<p><code>pd</code> is an object of type <code>PositiveDistance()</code>, x is an integer which stands for the degree of accuracy. The larger x is, the more accurate the evaluation will be.</p>
 <p>An example of this case can be found and run in the example folder.</p>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="test/" class="btn btn-neutral float-right" title="Tutorials">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-    </div>
   
 
   <hr/>
@@ -236,8 +213,6 @@ The two triangles and charts are again different. The two charts have to be crea
       
       
       
-        <span style="margin-left: 15px"><a href="test/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
     </span>
 </div>
     <script>var base_url = '.';</script>
@@ -252,5 +227,5 @@ The two triangles and charts are again different. The two charts have to be crea
 
 <!--
 MkDocs version : 0.17.1
-Build Date UTC : 2017-11-07 18:00:22
+Build Date UTC : 2017-11-08 10:56:15
 -->
