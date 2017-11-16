@@ -15,9 +15,9 @@ The parameterization of the sourcetriangle will be called $\chi_t$, and the para
 
 ## Common Face
 
-$\Gamma$ and $\Gamma'$ are equal, and both parameterizations must be equal as well: $\chi_t(u',v') = \chi_\tau(u,v)$.
+``\Gamma$ and $\Gamma'`` are equal, and both parameterizations must be equal as well: $\chi_t(u',v') = \chi_\tau(u,v)$.
 
-![](assets/CommonFace.bmp)
+![](assets/CommonFace.png)
 
 The user's task is to find a parameterization, which maps the reference triangle (right) on to the real (physical) triangle (left). The reference triangle is throughout this package always the same.
 
@@ -41,9 +41,9 @@ An example of this case can be found and run in the common_face_parameterized.jl
 
 ## Common Edge
 
-$\Gamma$ and $\Gamma'$ have an edge in common, and both parameterizations must fulfill the condition $\chi_t(s,0) = \chi_\tau(s,0)$. For example, this condition could be met if the points $(u\in[0,1];0)$ and $(u'\in[0,1];0)$ are mapped on the same point on the common edge.
+``\Gamma$ and $\Gamma'`` have an edge in common, and both parameterizations must fulfill the condition $\chi_t(s,0) = \chi_\tau(s,0)$. For example, this condition could be met if the points $(u\in[0,1];0)$ and $(u'\in[0,1];0)$ are mapped on the same point on the common edge.
 
-![](assets/CommonEdge.bmp)
+![](assets/CommonEdge.png)
 
 The parametrisations are functions, which correspond to the input arguments `soucechart` and `testchart`.
 
@@ -61,9 +61,9 @@ An example of this case can be found and run in the common_edge_parameterized.jl
 
 ## Common Vertex
 
-$\Gamma$ and $\Gamma'$ have one vertex in common, and both parameterizations must fulfill the condition $\chi_t(0,0) = \chi_\tau(0,0)$. This condition means that the origin of both reference triangles is mapped on the common vertex.
+``\Gamma$ and $\Gamma'`` have one vertex in common, and both parameterizations must fulfill the condition $\chi_t(0,0) = \chi_\tau(0,0)$. This condition means that the origin of both reference triangles is mapped on the common vertex.
 
-![](assets/CommonVertex.bmp)
+![](assets/CommonVertex.png)
 
 The parametrisations are functions, which correspond to the input arguments `soucechart` and `testchart`.
 
@@ -81,9 +81,9 @@ An example of this case can be found and run in the common_vertex_parameterized.
 
 ## Positive Distance
 
-$\Gamma$ and $\Gamma'$ do not touch at all, and both parameterizations need only to map from the reference triangle on to the real triangle.
+``\Gamma$ and $\Gamma'`` do not touch at all, and both parameterizations need only to map from the reference triangle on to the real triangle.
 
-![](assets/PositiveDistance.bmp)
+![](assets/PositiveDistance.png)
 
 The parametrisations are functions, which correspond to the input arguments `soucechart` and `testchart`.
 

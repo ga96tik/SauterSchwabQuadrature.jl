@@ -45,13 +45,11 @@ According to item 1 on the homepage, four different constellations of the two tr
 * One vertex in common $\to$ Common Vertex
 * Both triangles do not touch at all $\to$ Positive Distance
 
-![](assets/ubersicht.bmp)
+![](assets/ubersicht.png)
 
 As each of those four constellations has its own integration method (because of a possible singularity in the kernel), the function `sauterschwabintegral()` has to call another function, which handles the situation properly; hence it has four methods.
 
-```
 The user is now able to understand the examples in the '...non_parameterized.jl' files, rather their titles. The order of the points within the two `simplex()` functions of `Sourcechart` and `Testchart` can be changed arbitrarily, the result will always remain the same. For those who are interested in the 'called function' or want to skip `sauterschwabintegral()` and call the integration directly -- which is actually only a sorting process -- may read on now.  
-```
 
 The called function by `sauterschwabintegral()` is:
 
@@ -62,7 +60,7 @@ The called function by `sauterschwabintegral()` is:
 
 ### Common Face
 
- $\Gamma$ and $\Gamma'$ are equal, hence `sourcechart` and `testchart` are equal as well. The two charts can be created by
+ ``\Gamma$ and $\Gamma'`` are equal, hence `sourcechart` and `testchart` are equal as well. The two charts can be created by
 
  `testchart = sourcechart = simplex(P1,P2,P3)`,
 
@@ -83,7 +81,7 @@ An example of this case can be found at the end of the common_face_non_parameter
 
 ### Common Edge
 
-$\Gamma$ and $\Gamma'$ are now different, hence `sourcechart` and `testchart` are different as well. The two charts have to be created in the following manner:
+``\Gamma$ and $\Gamma'`` are now different, hence `sourcechart` and `testchart` are different as well. The two charts have to be created in the following manner:
 
 `testchart = simplex(P1,P2,P3); sourcechart = simplex(P1,P4,P3)`.
 

@@ -33,8 +33,6 @@ Both implementations are called by a function, which looks like:
 
 On the pages 'Non-Parameterized' and 'Parameterized', the user will find more information about the two implementations, and how to operate those.
 
-```
 Before using this package, CompScienceMeshes has to be installed; even if the user does not need it (second implementation), this package depends internally on CompScienceMeshes.  
 
 This documentation does not derive the integration rules, and how the integration is done, it only shows how to handle this package. If the user wants to know more about how this package operates, he has to go inside the src folder and look up for the book quoted in the README file.
-```
