@@ -21,13 +21,11 @@ The `integrand` must be defined as a function with two input arguments; the inpu
 
 The two area-integrals are transformed to four 1D integrals from zero to one; `accuracy` gives the number of quadrature points on that integration path, therefore `accuracy` is of type unsigned Int64.
 
-```
 Since `simplex()` and `point()` are functions of 'CompScienceMeshes', CompScienceMeshes does not just have to be installed on the user's machine, but also be available in the current workspace, the same applies for this package as well. The two packages can be made available by
 
 `using SauterSchwabQuadrature` and `using CompScienceMeshes`.
 
 Those two commands must always be run at the beginning if using this type of implementation.
-```
 
 `sauterschwabintegral()` first modifies `testchart` and `sourcechart` with respect to the order of the arguments within their `simplex()` functions; and secondly -- depending on how many vertices both charts have in common -- it generates an object of some type, which contains the information of the accuracy, and the integration strategy. After all of that have been done, this function will call another function with input arguments of the two modified charts, the integrand, and that new object.
 

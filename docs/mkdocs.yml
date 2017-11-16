@@ -2,7 +2,7 @@ site_name:           SauterSchwabQuadrature
 repo_url:            https://github.com/ga96tik/SauterSchwabQuadrature.jl
 site_description:    Description for SauterSchwabQuadrature
 site_author:         ga96tik
-theme:               readthedocs
+#theme:               readthedocs
 
 markdown_extensions:
   - codehilite
