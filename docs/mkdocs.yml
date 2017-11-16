@@ -22,3 +22,5 @@ docs_dir: 'build'
 
 pages:
 - Home: index.md
+- Non-Parameterized: Non-Parameterized.md
+- Parameterized: Parameterized.md

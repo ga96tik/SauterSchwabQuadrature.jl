@@ -1,5 +1,3 @@
-using CompScienceMeshes
-
 function k(α,β,γ)
 
 			x̂ = cartesian(α)
