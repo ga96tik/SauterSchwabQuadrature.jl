@@ -141,12 +141,9 @@ Those two commands must always be run at the beginning if using this type of imp
 <li>One vertex in common $\to$ Common Vertex</li>
 <li>Both triangles do not touch at all $\to$ Positive Distance</li>
 </ul>
-<p><img alt="" src="../assets/ubersicht.bmp" /></p>
+<p><img alt="" src="../assets/ubersicht.png" /></p>
 <p>As each of those four constellations has its own integration method (because of a possible singularity in the kernel), the function <code>sauterschwabintegral()</code> has to call another function, which handles the situation properly; hence it has four methods.</p>
-<div class="codehilite"><pre><span></span>The user is now able to understand the examples in the &#39;...non_parameterized.jl&#39; files, rather their titles. The order of the points within the two `simplex()` functions of `Sourcechart` and `Testchart` can be changed arbitrarily, the result will always remain the same. For those who are interested in the &#39;called function&#39; or want to skip `sauterschwabintegral()` and call the integration directly -- which is actually only a sorting process -- may read on now.  
-</pre></div>
-
-
+<p>The user is now able to understand the examples in the '...non_parameterized.jl' files, rather their titles. The order of the points within the two <code>simplex()</code> functions of <code>Sourcechart</code> and <code>Testchart</code> can be changed arbitrarily, the result will always remain the same. For those who are interested in the 'called function' or want to skip <code>sauterschwabintegral()</code> and call the integration directly – which is actually only a sorting process – may read on now.  </p>
 <p>The called function by <code>sauterschwabintegral()</code> is:</p>
 <p><code>sauterschwab_nonparameterized(sourcechart, testchart, integrand, method)</code>.</p>
 <p><code>sourcechart</code> and <code>testchart</code> are the modified versions of the original charts, the <code>integrand</code> is the same as at the beginning, and <code>method</code> is that created object. The type of <code>method</code> is responsible for which method of <code>sauterschwab_nonparameterized</code>  is called. The four methods will be listed now:</p>
@@ -161,12 +158,7 @@ Those two commands must always be run at the beginning if using this type of imp
 <p>An example of this case can be found at the end of the common_face_non_parameterized.jl file in the example folder.</p>
 <p><a id='Common-Edge-1'></a></p>
 <h3 id="common-edge">Common Edge</h3>
-<p>
-<script type="math/tex; mode=display">
-\Gamma
-</script>
-</p>
-<p>and $\Gamma'$ are now different, hence <code>sourcechart</code> and <code>testchart</code> are different as well. The two charts have to be created in the following manner:</p>
+<p>$\Gamma$ and $\Gamma'$ are now different, hence <code>sourcechart</code> and <code>testchart</code> are different as well. The two charts have to be created in the following manner:</p>
 <p><code>testchart = simplex(P1,P2,P3); sourcechart = simplex(P1,P4,P3)</code>.</p>
 <p>Again the order of the input arguments must be taken into account: The first argument of both charts must be equal, and the last argument of both charts must be equal. Consequently the first and the last argument are the vertices which both triangles have in common.</p>
 <p>The last argument is created</p>
