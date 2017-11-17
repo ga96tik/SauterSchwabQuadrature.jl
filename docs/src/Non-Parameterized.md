@@ -38,10 +38,10 @@ To understand the examples stored in the example folder, the 'another called fun
 ## Integration
 
 According to item 1 on the homepage, four different constellations of the two triangles are possible:
-* Equal triangles $\to$ Common Face
-* Two vertices in common $\to$ Common Edge
-* One vertex in common $\to$ Common Vertex
-* Both triangles do not touch at all $\to$ Positive Distance
+* Equal triangles ``\to`` Common Face
+* Two vertices in common ``\to`` Common Edge
+* One vertex in common ``\to`` Common Vertex
+* Both triangles do not touch at all ``\to`` Positive Distance
 
 ![](assets/ubersicht.png)
 
@@ -58,7 +58,7 @@ The called function by `sauterschwabintegral()` is:
 
 ### Common Face
 
- ``\Gamma$ and $\Gamma'`` are equal, hence `sourcechart` and `testchart` are equal as well. The two charts can be created by
+ ``\Gamma`` and ``\Gamma'`` are equal, hence `sourcechart` and `testchart` are equal as well. The two charts can be created by
 
  `testchart = sourcechart = simplex(P1,P2,P3)`,
 
@@ -79,7 +79,7 @@ An example of this case can be found at the end of the common_face_non_parameter
 
 ### Common Edge
 
-``\Gamma$ and $\Gamma'`` are now different, hence `sourcechart` and `testchart` are different as well. The two charts have to be created in the following manner:
+``\Gamma`` and ``\Gamma'`` are now different, hence `sourcechart` and `testchart` are different as well. The two charts have to be created in the following manner:
 
 `testchart = simplex(P1,P2,P3); sourcechart = simplex(P1,P4,P3)`.
 
@@ -130,3 +130,5 @@ The last argument is created by
 `pd` is an object of type `PositiveDistance()`, x is the `accuracy`.
 
 An example of this case can be found at the end of the positive_distance_non_parameterized.jl file in the example folder.
+
+![](assets/facecurrents.png)

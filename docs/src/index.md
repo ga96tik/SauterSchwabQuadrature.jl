@@ -7,7 +7,7 @@ This package can be used to solve problems of following type:
 \int_{\Gamma}\int_{\Gamma'}b_i(\textbf{x})\,k(\textbf{x},\textbf{y})\, b_j(\textbf{y})\;da_\textbf{y}\,da_\textbf{x}
 ```
 
-The above expression is a double area-integral over two triangles (curved or flat) $\Gamma$ and $\Gamma'$ in 3D Space. The integrand consists of two basisfunctions $b_i(\textbf{x})$ and $b_i(\textbf{y})$ and the kernel $k(\textbf{x},\textbf{y})$.   
+The above expression is a double area-integral over two triangles (curved or flat) ``\Gamma$ and $\Gamma'`` in 3D Space. The integrand consists of two basisfunctions ``b_i(\textbf{x})`` and ``b_i(\textbf{y})`` and the kernel ``k(\textbf{x},\textbf{y})``.   
 
 This kind of integral appears in the area of Boundary Element Methods for solving elliptic partial differential equations, and can be interpretated as the interaction of the two basisfunctions with respect to their triangles. For this reason in this package the two triangles are called test- and sourcecell, and the same goes for the two basefunctions; they are called test- and sourcefunction. The triangles correspond to the cells of a meshed surface.
 

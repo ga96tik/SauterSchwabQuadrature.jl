@@ -9,13 +9,13 @@ As on the homepage already mentioned, the user has now to parameterize the integ
 
 Before the parameterizations/charts (parameterization = chart) are built, the user has to figure out, which integration method should be applied, and decide how accurate the integration shall be done. It is recommended that the user read the page 'Non_Parameterized' before he continues reading here because otherwise he may not be able to apply the concepts of 'integration method' and 'accuracy'.
 
-The parameterization of the sourcetriangle will be called $\chi_t$, and the parameterization of the testtriangle will be called $\chi_\tau$. In the following, the parameterization of every single integration method will be presented.
+The parameterization of the sourcetriangle will be called ``\chi_t``, and the parameterization of the testtriangle will be called ``\chi_\tau``. In the following, the parameterization of every single integration method will be presented.
 
 
 
 ## Common Face
 
-``\Gamma$ and $\Gamma'`` are equal, and both parameterizations must be equal as well: $\chi_t(u',v') = \chi_\tau(u,v)$.
+``\Gamma`` and ``\Gamma'`` are equal, and both parameterizations must be equal as well: ``\chi_t(u',v') = \chi_\tau(u,v)``.
 
 ![](assets/CommonFace.png)
 
@@ -23,7 +23,7 @@ The user's task is to find a parameterization, which maps the reference triangle
 
  That parameterization is a function, which corresponds to the input arguments `soucechart` and `testchart`.
 
-The original integrand, which looks like $f(\textbf{x},\textbf{y})$, becomes:
+The original integrand, which looks like ``f(\textbf{x},\textbf{y})``, becomes:
 
 ```math
 f(\chi_\tau(u,v),\chi_t(u',v')) \cdot \|\frac{\partial \chi_\tau}{\partial u}\times\frac{\partial \chi_\tau}{\partial v}\| \cdot\|\frac{\partial \chi_t}{\partial u'}\times\frac{\partial \chi_t}{\partial v'}\|
@@ -41,7 +41,7 @@ An example of this case can be found and run in the common_face_parameterized.jl
 
 ## Common Edge
 
-``\Gamma$ and $\Gamma'`` have an edge in common, and both parameterizations must fulfill the condition $\chi_t(s,0) = \chi_\tau(s,0)$. For example, this condition could be met if the points $(u\in[0,1];0)$ and $(u'\in[0,1];0)$ are mapped on the same point on the common edge.
+``\Gamma`` and ``\Gamma'`` have an edge in common, and both parameterizations must fulfill the condition ``\chi_t(s,0) = \chi_\tau(s,0)``. For example, this condition could be met if the points ``(u\in[0,1];0)`` and ``(u'\in[0,1];0)`` are mapped on the same point on the common edge.
 
 ![](assets/CommonEdge.png)
 
@@ -61,7 +61,7 @@ An example of this case can be found and run in the common_edge_parameterized.jl
 
 ## Common Vertex
 
-``\Gamma$ and $\Gamma'`` have one vertex in common, and both parameterizations must fulfill the condition $\chi_t(0,0) = \chi_\tau(0,0)$. This condition means that the origin of both reference triangles is mapped on the common vertex.
+``\Gamma`` and ``\Gamma'`` have one vertex in common, and both parameterizations must fulfill the condition ``\chi_t(0,0) = \chi_\tau(0,0)``. This condition means that the origin of both reference triangles is mapped on the common vertex.
 
 ![](assets/CommonVertex.png)
 
@@ -81,7 +81,7 @@ An example of this case can be found and run in the common_vertex_parameterized.
 
 ## Positive Distance
 
-``\Gamma$ and $\Gamma'`` do not touch at all, and both parameterizations need only to map from the reference triangle on to the real triangle.
+The two triangles do not touch at all, and both parameterizations need only to map from the reference triangle on to the real triangle.
 
 ![](assets/PositiveDistance.png)
 
