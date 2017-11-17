@@ -113,7 +113,7 @@
 </script>
 </p>
 <p>The above expression is a double area-integral over two triangles (curved or flat) $\Gamma$ and $\Gamma'$ in 3D Space. The integrand consists of two basisfunctions $b_i(\textbf{x})$ and $b_i(\textbf{y})$ and the kernel $k(\textbf{x},\textbf{y})$.   </p>
-<p>This kind of integral appears in the area of Boundary Element Methods for solving elliptic partial differential equations, and can be interpretated as the interaction of the two basisfunctions with respect to their triangles. For this reason in this package the two triangles are called test- and sourcecell, and the same goes for the two basefunctions; they are called test- and sourcefunction. The triangles correspond to the cells of a meshed surface.</p>
+<p>This kind of integral appears in the area of Boundary Element Methods for solving elliptic partial differential equations, and can be interpretated as the interaction of the two basisfunctions with respect to their triangles. For this reason in this package $\Gamma$ is called the testtriangle and $\Gamma'$ the sourcetriangle, and the same goes for the two basefunctions; they are called test- and sourcefunction. The triangles correspond to the cells of a meshed surface.</p>
 <p>As the solving algorithm works for a wide range of basisfunctions and kernels, all the requirements for the kernel, basisfunctions and the integration areas will be given:</p>
 <p>1.Requirements for the triangles:</p>
 <ul>
@@ -129,7 +129,7 @@
 <p>Depending on the input data, two different implementations of the integral are contained in this package. The first one is very convenient to handle, and does not need a parametrisation; but it works only for flat triangles, and the user has to be familiar with the functions <code>simplex()</code> and <code>point()</code> of the package CompScienceMeshes. The second implementation contains only the integration rules; so the user has to build the parameterization himself, but therefore it also works for curved triangles.</p>
 <p>Both implementations are called by a function, which looks like:  </p>
 <p><code>function(sourcechart, testchart, integrand, information)</code></p>
-<p><code>sourcechart</code> and <code>testchart</code> are the mappings from a reference triangle (parameterization) to the real triangles in space; they contain the information of the positions of both triangles. <code>integrand</code> is the integrand, and the last argument contains information about how accurate the integration shall be done, and the type of integration.</p>
+<p><code>sourcechart</code> and <code>testchart</code> are the mappings from a reference triangle (parameterization) to the real (physical) triangles in space. <code>integrand</code> is the integrand, and the last argument contains information about how accurate the integration shall be done, and the type of integration.</p>
 <p>On the pages 'Non-Parameterized' and 'Parameterized', the user will find more information about the two implementations, and how to operate those.</p>
 <p>Before using this package, CompScienceMeshes has to be installed; even if the user does not need it (second implementation), this package depends internally on CompScienceMeshes.  </p>
 <p>This documentation does not derive the integration rules, and how the integration is done, it only shows how to handle this package. If the user wants to know more about how this package operates, he has to go inside the src folder and look up for the book quoted in the README file.</p>
@@ -186,5 +186,5 @@
 
 <!--
 MkDocs version : 0.17.2
-Build Date UTC : 2017-11-17 15:40:07
+Build Date UTC : 2017-11-17 17:49:29
 -->
