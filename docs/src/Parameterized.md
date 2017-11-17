@@ -17,13 +17,13 @@ The parameterization of the sourcetriangle will be called ``\chi_t``, and the pa
 
 ``\Gamma`` and ``\Gamma'`` are equal, and both parameterizations must be equal as well: ``\chi_t(u',v') = \chi_\tau(u,v)``.
 
-![](assets/CommonFace.png)
+![](assets/CommonFace.jpg)
 
-The user's task is to find a parameterization, which maps the reference triangle (right) on to the real (physical) triangle (left). The reference triangle is throughout this package always the same.
+The user's task is to find a parameterization, which maps the reference triangle (right) on to the real triangle (left). The reference triangle is throughout this package always the same.
 
  That parameterization is a function, which corresponds to the input arguments `soucechart` and `testchart`.
 
-The original integrand, which looks like ``f(\textbf{x},\textbf{y})``, becomes:
+The original integrand, which is a function of ``\textbf{x}`` and ``\textbf{y}``, becomes:
 
 ```math
 f(\chi_\tau(u,v),\chi_t(u',v')) \cdot \|\frac{\partial \chi_\tau}{\partial u}\times\frac{\partial \chi_\tau}{\partial v}\| \cdot\|\frac{\partial \chi_t}{\partial u'}\times\frac{\partial \chi_t}{\partial v'}\|
@@ -35,7 +35,7 @@ The last argument can be created by
 
 `cf` is an object of type `CommonFace()`, x is the `accuracy`.
 
-An example of this case can be found and run in the common_face_parameterized.jl file in the example folder.
+An example of this case can be found in the common_face_parameterized.jl file in the example folder.
 
 
 
@@ -43,7 +43,7 @@ An example of this case can be found and run in the common_face_parameterized.jl
 
 ``\Gamma`` and ``\Gamma'`` have an edge in common, and both parameterizations must fulfill the condition ``\chi_t(s,0) = \chi_\tau(s,0)``. For example, this condition could be met if the points ``(u\in[0,1];0)`` and ``(u'\in[0,1];0)`` are mapped on the same point on the common edge.
 
-![](assets/CommonEdge.png)
+![](assets/CommonEdge.jpg)
 
 The parametrisations are functions, which correspond to the input arguments `soucechart` and `testchart`.
 
@@ -55,7 +55,7 @@ The last argument can be created by
 
 `ce` is an object of type `CommonEdge()`, x is the `accuracy`.
 
-An example of this case can be found and run in the common_edge_parameterized.jl file in the example folder.
+An example of this case can be found in the common_edge_parameterized.jl file in the example folder.
 
 
 
@@ -63,7 +63,7 @@ An example of this case can be found and run in the common_edge_parameterized.jl
 
 ``\Gamma`` and ``\Gamma'`` have one vertex in common, and both parameterizations must fulfill the condition ``\chi_t(0,0) = \chi_\tau(0,0)``. This condition means that the origin of both reference triangles is mapped on the common vertex.
 
-![](assets/CommonVertex.png)
+![](assets/CommonVertex.jpg)
 
 The parametrisations are functions, which correspond to the input arguments `soucechart` and `testchart`.
 
@@ -75,7 +75,7 @@ The last argument can be created by
 
 `cv` is an object of type `CommonVertex()`, x is the `accuracy`.
 
-An example of this case can be found and run in the common_vertex_parameterized.jl file in the example folder.
+An example of this case can be found in the common_vertex_parameterized.jl file in the example folder.
 
 
 
@@ -83,7 +83,7 @@ An example of this case can be found and run in the common_vertex_parameterized.
 
 The two triangles do not touch at all, and both parameterizations need only to map from the reference triangle on to the real triangle.
 
-![](assets/PositiveDistance.png)
+![](assets/PositiveDistance.jpg)
 
 The parametrisations are functions, which correspond to the input arguments `soucechart` and `testchart`.
 
@@ -95,4 +95,4 @@ The last argument can be created by
 
 `pd` is an object of type `PositiveDistance()`, x is the `accuracy`.
 
-An example of this case can be found and run in the positive_distance_parameterized.jl file in the example folder.
+An example of this case can be found in the positive_distance_parameterized.jl file in the example folder.
