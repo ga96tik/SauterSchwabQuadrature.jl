@@ -130,5 +130,3 @@ The last argument is created by
 `pd` is an object of type `PositiveDistance()`, x is the `accuracy`.
 
 An example of this case can be found at the end of the positive_distance_non_parameterized.jl file in the example folder.
-
-![](assets/facecurrents.png)
