@@ -45,7 +45,7 @@ An example of this case can be found in the common_face_parameterized.jl file in
 
 ![](assets/CommonEdge.jpg)
 
-The parametrisations are functions, which correspond to the input arguments `soucechart` and `testchart`.
+The parametrizations are functions, which correspond to the input arguments `soucechart` and `testchart`.
 
 The modified integrand looks like in the case Common Face.
 
@@ -65,7 +65,7 @@ An example of this case can be found in the common_edge_parameterized.jl file in
 
 ![](assets/CommonVertex.jpg)
 
-The parametrisations are functions, which correspond to the input arguments `soucechart` and `testchart`.
+The parametrizations are functions, which correspond to the input arguments `soucechart` and `testchart`.
 
 The modified integrand looks like in the case Common Face.
 
@@ -85,7 +85,7 @@ The two triangles do not touch at all, and both parameterizations need only to m
 
 ![](assets/PositiveDistance.jpg)
 
-The parametrisations are functions, which correspond to the input arguments `soucechart` and `testchart`.
+The parametrizations are functions, which correspond to the input arguments `soucechart` and `testchart`.
 
 The modified integrand looks like in the case Common Face.
 

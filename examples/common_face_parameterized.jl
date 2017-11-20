@@ -2,35 +2,48 @@ using CompScienceMeshes
 using SauterSchwabQuadrature
 
 
-pI = point(1,5,3)
-pII = point(2,5,3)
-pIII = point(7,1,0)
-
-Sourcechart = Testchart = simplex(pI, pII, pIII)
-
 Accuracy = 12
 cf = CommonFace(Accuracy)
-
-
+pI = point(0,0,1)
 
 
 function integrand(x,y)
-			return(((x-pI)'*(y-pII))*exp(-im*1*norm(x-y))/(4pi*norm(x-y)))
+			return(((x-pI)'*(y-pI))*exp(-im*1*norm(x-y))/(4pi*norm(x-y)))
 end
+
+
+function Sc(û)
+	u = [û[1]/(1-û[2]), û[2]]		#mapping from referencetriangle to square
+	return(u)
+end
+
+
+function Tc(v̂)
+	v = [v̂[1]/(1-v̂[2]), v̂[2]]		#mapping from referencetriangle to square
+	return(v)
+end
+
 
 function INTEGRAND(û,v̂)
-	n1 = neighborhood(Testchart, û)
-	n2 = neighborhood(Sourcechart, v̂)
-	x = cartesian(n1)
-	y = cartesian(n2)
-	output = integrand(x,y)*jacobian(n1)*jacobian(n2)
+
+	ϴ = Sc(û)[1]
+	ϕ = Sc(û)[2]
+	ϴ1= Tc(v̂)[1]
+	ϕ1= Tc(v̂)[2]
+
+	x = [sin(ϴ)*cos(ϕ),   sin(ϴ)*sin(ϕ),   cos(ϴ) ]		#spherical coordiantes
+	y = [sin(ϴ1)*cos(ϕ1), sin(ϴ1)*sin(ϕ1), cos(ϴ1)]		#spherical coordiantes
+
+	output = integrand(x,y) * sin(ϴ)*sin(ϴ1) * (1/(1-û[2]))*(1/(1-v̂[2]))
+	#sin(ϴ)*sin(ϴ1) = surface element of spherical coordinates
+	#(1/(1-û[2]))*(1/(1-v̂[2]) = surface element of first two mappings
 
 return(output)
+
 end
 
 
+result = sauterschwab_parameterized(Sc, Tc, INTEGRAND, cf)
 
 
-result = sauterschwab_parameterized(Sourcechart, Testchart, INTEGRAND, cf)-
-		   sauterschwabintegral(Sourcechart, Testchart, integrand, Accuracy)
 println(result)

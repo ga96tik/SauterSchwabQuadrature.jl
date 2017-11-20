@@ -23,7 +23,7 @@ As the solving algorithm works for a wide range of basisfunctions and kernels, a
 
 3.The kernel must be Cauchy-Singular
 
-Depending on the input data, two different implementations of the integral are contained in this package. The first one is very convenient to handle, and does not need a parametrisation; but it works only for flat triangles, and the user has to be familiar with the functions `simplex()` and `point()` of the package CompScienceMeshes. The second implementation contains only the integration rules; so the user has to build the parameterization himself, but therefore it also works for curved triangles.
+Depending on the input data, two different implementations of the integral are contained in this package. The first one is very convenient to handle, and does not need a parameterization; but it works only for flat triangles, and the user has to be familiar with the functions `simplex()` and `point()` of the package CompScienceMeshes. The second implementation contains only the integration rules; so the user has to build the parameterization himself, but therefore it also works for curved triangles.
 
 Both implementations are called by a function, which looks like:  
 
