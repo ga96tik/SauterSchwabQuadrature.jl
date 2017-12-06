@@ -29,11 +29,11 @@ The original integrand, which is a function of ``\textbf{x}`` and ``\textbf{y}``
 f(\chi_\tau(u,v),\chi_t(u',v')) \cdot \|\frac{\partial \chi_\tau}{\partial u}\times\frac{\partial \chi_\tau}{\partial v}\| \cdot\|\frac{\partial \chi_t}{\partial u'}\times\frac{\partial \chi_t}{\partial v'}\|
 ```
 
-The last argument can be created by
+ This function method as well as the following methods, transform the two area-integrals in parameters domain into four 1D integrals from zero to one, therefore the last argument can be created by
 
 `cf = CommonFace(x)`.
 
-`cf` is an object of type `CommonFace()`, x is the `accuracy`.
+`cf` is an object of type `CommonFace()`, x is the number of quadrature points on the integration path ``[0,1]``.
 
 An example of this case can be found in the common_face_parameterized.jl file in the example folder.
 
@@ -53,7 +53,7 @@ The last argument can be created by
 
 `ce = CommonEdge(x)`.
 
-`ce` is an object of type `CommonEdge()`, x is the `accuracy`.
+`ce` is an object of type `CommonEdge()`, x is the number of quadrature points on the integration path ``[0,1]``.
 
 An example of this case can be found in the common_edge_parameterized.jl file in the example folder.
 
@@ -73,7 +73,7 @@ The last argument can be created by
 
 `cv = CommonVertex(x)`.
 
-`cv` is an object of type `CommonVertex()`, x is the `accuracy`.
+`cv` is an object of type `CommonVertex()`, x is the number of quadrature points on the integration path ``[0,1]``.
 
 An example of this case can be found in the common_vertex_parameterized.jl file in the example folder.
 
@@ -93,6 +93,6 @@ The last argument can be created by
 
 `pd = PositiveDistance(x)`.
 
-`pd` is an object of type `PositiveDistance()`, x is the `accuracy`.
+`pd` is an object of type `PositiveDistance()`, x is the number of quadrature points on the integration path ``[0,1]``.
 
 An example of this case can be found in the positive_distance_parameterized.jl file in the example folder.

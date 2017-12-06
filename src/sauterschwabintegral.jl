@@ -15,7 +15,7 @@ struct PositiveDistance <:Any	acc::Int64		end
 
 function sauterschwabintegral(sourcechart::CompScienceMeshes.Simplex{3,2,1,3,Float64},
 	 							testchart::CompScienceMeshes.Simplex{3,2,1,3,Float64},
-								 integrand, accuracy::Int64)
+								 integrand, accuracy::Int64, accuracy_pd::Int64)
 
 	index_equal_src = findin(sourcechart.vertices, testchart.vertices)
 	index_equal_tst = findin(testchart.vertices, sourcechart.vertices)
@@ -26,7 +26,7 @@ function sauterschwabintegral(sourcechart::CompScienceMeshes.Simplex{3,2,1,3,Flo
 	if m == 0
 		Sourcechart = sourcechart
 		Testchart = testchart
-		method = PositiveDistance(accuracy)
+		method = PositiveDistance(accuracy_pd)
 
 	elseif m == 1
 		SOURCECHART = Array{Any}(3)

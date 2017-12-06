@@ -3,7 +3,7 @@
 
 The called function in this implementation looks like:
 
-`sauterschwabintegral(sourcechart, testchart, integrand, accuracy)`.
+`sauterschwabintegral(sourcechart, testchart, integrand, accuracy, accuracy_pd)`.
 
 `sourcechart` and `testchart` can be created by
 
@@ -19,7 +19,7 @@ The order of the input arguments within the `simplex()` function does not matter
 
 The `integrand` must be defined as a function with two input arguments; the input arguments must be 3D vectors. The function name is the input argument.
 
-The two area-integrals are transformed to four 1D integrals from zero to one; `accuracy` gives the number of quadrature points on that integration path, therefore `accuracy` is of type unsigned Int64.
+Later the last argument `accuracy` will be discussed.
 
 Since `simplex()` and `point()` are functions of CompScienceMeshes, CompScienceMeshes does not just have to be installed on the user's machine, but also be available in the current workspace, the same applies for this package as well. The two packages can be made available by
 
@@ -29,7 +29,7 @@ Those two commands must always be run at the beginning if using this type of imp
 
 `sauterschwabintegral()` first modifies `testchart` and `sourcechart` with respect to the order of the arguments within their `simplex()` functions; and secondly -- depending on how many vertices both charts have in common -- it generates an object of some type, which contains the information of the accuracy, and the integration strategy. After all of that have been done, this function will call another function with input arguments of the two modified charts, the original integrand, and that new object.
 
-To understand the examples stored in the example folder, the 'another called function' will be presented next:
+To understand the arguments `accuracy` and `accuracy_pd` and the examples stored in the example folder, the 'another called function' will be presented next:
 
 
 
@@ -46,6 +46,23 @@ According to item 1 on the homepage, four different constellations of the two tr
 ![](assets/ubersicht.png)
 
 As each of those four constellations has its own integration method (because of a possible singularity in the kernel), the function `sauterschwabintegral()` has to call another function, which handles the situation suitably; hence it has four methods.
+
+In the case `sauterschwabintegral()` has to deal with a situation mentioned in the first three cases, the two area-integrals will be transformed to four 1D integrals from zero to one; `accuracy` gives the number of quadrature points on that integration path, therefore `accuracy` is of type unsigned Int64. In the case `sauterschwabintegral()` has to deal with a situation of the last case, `accuracy_pd` -- which is again a type of unsigned Int64 -- will be considered. It is a rule of how many quadrature points are created on both triangles. `accuracy_pd` =
+* 1 ``\to`` 1
+* 2 ``\to`` 3
+* 3 ``\to`` 4
+* 4 ``\to`` 6
+* 5 ``\to`` 7
+* 6 ``\to`` 12
+* 7 ``\to`` 13
+* 8 ``\to`` 36
+* 9 ``\to`` 79
+* 10 ``\to`` 105
+* 11 ``\to`` 120
+* 12 ``\to`` 400
+* 13 ``\to`` 900
+quadrature point(s) is(are) created on both triangles.  
+
 
 The user is now able to understand the examples in the '...non_parameterized.jl' files, rather their titles. The order of the points within the two `simplex()` functions of `Sourcechart` and `Testchart` can be changed arbitrarily, the result will always remain the same. For those who are interested in the 'called function' or want to skip `sauterschwabintegral()` and call the integration directly -- which is actually only a sorting process -- may read on now.  
 
@@ -68,7 +85,7 @@ The called function by `sauterschwabintegral()` is:
 
 `cf = CommonFace(x)`.
 
-`cf` is an object of type `CommonFace()`, x is the `accuracy`.
+`cf` is an object of type `CommonFace()`, x is the number of quadrature points on the integration path ``[0,1]``.
 
 An example of this case can be found at the end of the common_face_non_parameterized.jl file in the example folder.
 
@@ -89,7 +106,7 @@ The last argument can be created by
 
 `ce = CommonEdge(x)`.
 
-`ce` is an object of type `CommonEdge()`, x is the `accuracy`.
+`ce` is an object of type `CommonEdge()`, x is the number of quadrature points on the integration path ``[0,1]``.
 
 An example of this case can be found at the end of the common_edge_non_parameterized.jl file in the example folder.
 
@@ -110,7 +127,7 @@ The last argument is created by
 
 `cv = CommonVertex(x)`.
 
-`cv` is an object of type `CommonVertex()`, x is the `accuracy`.
+`cv` is an object of type `CommonVertex()`, x is the number of quadrature points on the integration path ``[0,1]``.
 
 An example of this case can be found at the end of the common_vertex_non_parameterized.jl file in the example folder.
 
@@ -127,6 +144,6 @@ The last argument can be created by
 
 `pd = PositiveDistance(x)`.
 
-`pd` is an object of type `PositiveDistance()`, x is the `accuracy`.
+`pd` is an object of type `PositiveDistance()`, x is the rule of how many quadrature points are created on both triangles.
 
 An example of this case can be found at the end of the positive_distance_non_parameterized.jl file in the example folder.

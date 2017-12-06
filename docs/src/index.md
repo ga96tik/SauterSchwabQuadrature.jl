@@ -9,7 +9,7 @@ This package can be used to solve problems of following type:
 
 The above expression is a double area-integral over two triangles (curved or flat) ``\Gamma`` and ``\Gamma'`` in 3D Space. The integrand consists of two basisfunctions ``b_i(\textbf{x})`` and ``b_i(\textbf{y})`` and the kernel ``k(\textbf{x},\textbf{y})``.   
 
-This kind of integral appears in the area of Boundary Element Methods for solving elliptic partial differential equations, and can be interpretated as the interaction of the two basisfunctions with respect to their triangles. For this reason in this package ``\Gamma`` is called the testtriangle and ``\Gamma'`` the sourcetriangle, and the same goes for the two basisfunctions; they are called test- and sourcefunction. The triangles correspond to the cells of a meshed surface.
+This kind of integral appears in the area of Boundary Element Methods for solving elliptic partial differential equations, and can be interpreted as the interaction of the two basisfunctions with respect to their triangles. For this reason in this package ``\Gamma`` is called the testtriangle and ``\Gamma'`` the sourcetriangle, and the same goes for the two basisfunctions; they are called test- and sourcefunction. The triangles correspond to the cells of a meshed surface.
 
 As the solving algorithm works for a wide range of basisfunctions and kernels, all the requirements for the kernel, basisfunctions and the integration areas will be given:
 
@@ -23,7 +23,7 @@ As the solving algorithm works for a wide range of basisfunctions and kernels, a
 
 3.The kernel must be Cauchy-Singular
 
-Depending on the input data, two different implementations of the integral are contained in this package. The first one is very convenient to handle, and does not need a parameterization; but it works only for flat triangles, and the user has to be familiar with the functions `simplex()` and `point()` of the package CompScienceMeshes. The second implementation contains only the integration rules; so the user has to build the parameterization himself, but therefore it also works for curved triangles.
+Depending on the input data, two different implementations of the integral are contained in this package. The first one is very convenient to handle, and does not need a parameterization; but it works only for flat triangles, and the user has to be familiar with the functions `simplex()` and `point()` of the package CompScienceMeshes. The second implementation contains only the integration rules; so the user has to build the parameterization by himself, but therefore it also works for curved triangles.
 
 Both implementations are called by a function, which looks like:  
 

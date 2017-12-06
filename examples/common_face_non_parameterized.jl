@@ -19,7 +19,7 @@ end
 
 
 
-result = sauterschwabintegral(Sourcechart, Testchart, integrand, Accuracy)
+result = sauterschwabintegral(Sourcechart, Testchart, integrand, Accuracy, Accuracy)
 println(result)
 
 #=For those who want to test the sauterschwab_nonparameterized() function,

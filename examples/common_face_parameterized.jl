@@ -2,13 +2,14 @@ using CompScienceMeshes
 using SauterSchwabQuadrature
 
 
-Accuracy = 12
+Accuracy = 20
 cf = CommonFace(Accuracy)
 pI = point(0,0,1)
 
 
 function integrand(x,y)
 			return(((x-pI)'*(y-pI))*exp(-im*1*norm(x-y))/(4pi*norm(x-y)))
+			#1
 end
 
 
@@ -47,3 +48,6 @@ result = sauterschwab_parameterized(Sc, Tc, INTEGRAND, cf)
 
 
 println(result)
+
+#proof of correctness: let integrand be 1, then the integration becomes a simple
+#area integral which is equal to (-cos(1)+cos(0))^2
