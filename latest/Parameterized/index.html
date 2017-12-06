@@ -135,9 +135,9 @@
 f(\chi_\tau(u,v),\chi_t(u',v')) \cdot \|\frac{\partial \chi_\tau}{\partial u}\times\frac{\partial \chi_\tau}{\partial v}\| \cdot\|\frac{\partial \chi_t}{\partial u'}\times\frac{\partial \chi_t}{\partial v'}\|
 </script>
 </p>
-<p>The last argument can be created by</p>
+<p>This function method as well as the following methods, transform the two area-integrals in parameters domain into four 1D integrals from zero to one, therefore the last argument can be created by</p>
 <p><code>cf = CommonFace(x)</code>.</p>
-<p><code>cf</code> is an object of type <code>CommonFace()</code>, x is the <code>accuracy</code>.</p>
+<p><code>cf</code> is an object of type <code>CommonFace()</code>, x is the number of quadrature points on the integration path $[0,1]$.</p>
 <p>An example of this case can be found in the common_face_parameterized.jl file in the example folder.</p>
 <p><a id='Common-Edge-1'></a></p>
 <h2 id="common-edge">Common Edge</h2>
@@ -147,7 +147,7 @@ f(\chi_\tau(u,v),\chi_t(u',v')) \cdot \|\frac{\partial \chi_\tau}{\partial u}\ti
 <p>The modified integrand looks like in the case Common Face.</p>
 <p>The last argument can be created by</p>
 <p><code>ce = CommonEdge(x)</code>.</p>
-<p><code>ce</code> is an object of type <code>CommonEdge()</code>, x is the <code>accuracy</code>.</p>
+<p><code>ce</code> is an object of type <code>CommonEdge()</code>, x is the number of quadrature points on the integration path $[0,1]$.</p>
 <p>An example of this case can be found in the common_edge_parameterized.jl file in the example folder.</p>
 <p><a id='Common-Vertex-1'></a></p>
 <h2 id="common-vertex">Common Vertex</h2>
@@ -157,7 +157,7 @@ f(\chi_\tau(u,v),\chi_t(u',v')) \cdot \|\frac{\partial \chi_\tau}{\partial u}\ti
 <p>The modified integrand looks like in the case Common Face.</p>
 <p>The last argument can be created by</p>
 <p><code>cv = CommonVertex(x)</code>.</p>
-<p><code>cv</code> is an object of type <code>CommonVertex()</code>, x is the <code>accuracy</code>.</p>
+<p><code>cv</code> is an object of type <code>CommonVertex()</code>, x is the number of quadrature points on the integration path $[0,1]$.</p>
 <p>An example of this case can be found in the common_vertex_parameterized.jl file in the example folder.</p>
 <p><a id='Positive-Distance-1'></a></p>
 <h2 id="positive-distance">Positive Distance</h2>
@@ -167,7 +167,7 @@ f(\chi_\tau(u,v),\chi_t(u',v')) \cdot \|\frac{\partial \chi_\tau}{\partial u}\ti
 <p>The modified integrand looks like in the case Common Face.</p>
 <p>The last argument can be created by</p>
 <p><code>pd = PositiveDistance(x)</code>.</p>
-<p><code>pd</code> is an object of type <code>PositiveDistance()</code>, x is the <code>accuracy</code>.</p>
+<p><code>pd</code> is an object of type <code>PositiveDistance()</code>, x is the number of quadrature points on the integration path $[0,1]$.</p>
 <p>An example of this case can be found in the positive_distance_parameterized.jl file in the example folder.</p>
               
             </div>

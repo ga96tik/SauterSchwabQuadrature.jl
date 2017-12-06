@@ -113,7 +113,7 @@
                 <p><a id='Non-Parameterized-1'></a></p>
 <h1 id="non-parameterized">Non-Parameterized</h1>
 <p>The called function in this implementation looks like:</p>
-<p><code>sauterschwabintegral(sourcechart, testchart, integrand, accuracy)</code>.</p>
+<p><code>sauterschwabintegral(sourcechart, testchart, integrand, accuracy, accuracy_pd)</code>.</p>
 <p><code>sourcechart</code> and <code>testchart</code> can be created by</p>
 <p><code>testchart = simplex(P1,P2,P3); sourcechart = simplex(P4,P5,P6)</code>.</p>
 <p>The order of the input arguments within the <code>simplex()</code> function does not matter.</p>
@@ -121,12 +121,12 @@
 <p><code>P = point(x,y,z)</code>.</p>
 <p><code>x</code>, <code>y</code> and <code>z</code> are the coordinates of that particular point and <code>point()</code> creates a position vector which is of type <code>SVector{3,Float64}</code>.</p>
 <p>The <code>integrand</code> must be defined as a function with two input arguments; the input arguments must be 3D vectors. The function name is the input argument.</p>
-<p>The two area-integrals are transformed to four 1D integrals from zero to one; <code>accuracy</code> gives the number of quadrature points on that integration path, therefore <code>accuracy</code> is of type unsigned Int64.</p>
+<p>Later the last argument <code>accuracy</code> will be discussed.</p>
 <p>Since <code>simplex()</code> and <code>point()</code> are functions of CompScienceMeshes, CompScienceMeshes does not just have to be installed on the user's machine, but also be available in the current workspace, the same applies for this package as well. The two packages can be made available by</p>
 <p><code>using SauterSchwabQuadrature</code> and <code>using CompScienceMeshes</code>.</p>
 <p>Those two commands must always be run at the beginning if using this type of implementation.</p>
 <p><code>sauterschwabintegral()</code> first modifies <code>testchart</code> and <code>sourcechart</code> with respect to the order of the arguments within their <code>simplex()</code> functions; and secondly – depending on how many vertices both charts have in common – it generates an object of some type, which contains the information of the accuracy, and the integration strategy. After all of that have been done, this function will call another function with input arguments of the two modified charts, the original integrand, and that new object.</p>
-<p>To understand the examples stored in the example folder, the 'another called function' will be presented next:</p>
+<p>To understand the arguments <code>accuracy</code> and <code>accuracy_pd</code> and the examples stored in the example folder, the 'another called function' will be presented next:</p>
 <p><a id='Integration-1'></a></p>
 <h2 id="integration">Integration</h2>
 <p>According to item 1 on the homepage, four different constellations of the two triangles are possible:</p>
@@ -138,6 +138,23 @@
 </ul>
 <p><img alt="" src="../assets/ubersicht.png" /></p>
 <p>As each of those four constellations has its own integration method (because of a possible singularity in the kernel), the function <code>sauterschwabintegral()</code> has to call another function, which handles the situation suitably; hence it has four methods.</p>
+<p>In the case <code>sauterschwabintegral()</code> has to deal with a situation mentioned in the first three cases, the two area-integrals will be transformed to four 1D integrals from zero to one; <code>accuracy</code> gives the number of quadrature points on that integration path, therefore <code>accuracy</code> is of type unsigned Int64. In the case <code>sauterschwabintegral()</code> has to deal with a situation of the last case, <code>accuracy_pd</code> – which is again a type of unsigned Int64 – will be considered. It is a rule of how many quadrature points are created on both triangles. <code>accuracy_pd</code> =</p>
+<ul>
+<li>1 $\to$ 1</li>
+<li>2 $\to$ 3</li>
+<li>3 $\to$ 4</li>
+<li>4 $\to$ 6</li>
+<li>5 $\to$ 7</li>
+<li>6 $\to$ 12</li>
+<li>7 $\to$ 13</li>
+<li>8 $\to$ 36</li>
+<li>9 $\to$ 79</li>
+<li>10 $\to$ 105</li>
+<li>11 $\to$ 120</li>
+<li>12 $\to$ 400</li>
+<li>13 $\to$ 900</li>
+</ul>
+<p>quadrature point(s) is(are) created on both triangles.  </p>
 <p>The user is now able to understand the examples in the '...non_parameterized.jl' files, rather their titles. The order of the points within the two <code>simplex()</code> functions of <code>Sourcechart</code> and <code>Testchart</code> can be changed arbitrarily, the result will always remain the same. For those who are interested in the 'called function' or want to skip <code>sauterschwabintegral()</code> and call the integration directly – which is actually only a sorting process – may read on now.  </p>
 <p>The called function by <code>sauterschwabintegral()</code> is:</p>
 <p><code>sauterschwab_nonparameterized(sourcechart, testchart, integrand, method)</code>.</p>
@@ -149,7 +166,7 @@
 <p>where <code>P1</code>, <code>P2</code> and <code>P3</code> are the vertices of that particular triangle. Note that both charts must be equal, that means that the first argument of both charts must be equal, the second argument of both charts must be equal, and the last argument of both charts must be equal.</p>
 <p>The last argument can be created by</p>
 <p><code>cf = CommonFace(x)</code>.</p>
-<p><code>cf</code> is an object of type <code>CommonFace()</code>, x is the <code>accuracy</code>.</p>
+<p><code>cf</code> is an object of type <code>CommonFace()</code>, x is the number of quadrature points on the integration path $[0,1]$.</p>
 <p>An example of this case can be found at the end of the common_face_non_parameterized.jl file in the example folder.</p>
 <p><a id='Common-Edge-1'></a></p>
 <h3 id="common-edge">Common Edge</h3>
@@ -158,7 +175,7 @@
 <p>Again the order of the input arguments must be taken into account: The first argument of both charts must be equal, and the last argument of both charts must be equal. Consequently the first and the last argument are the vertices which both triangles have in common.</p>
 <p>The last argument can be created by</p>
 <p><code>ce = CommonEdge(x)</code>.</p>
-<p><code>ce</code> is an object of type <code>CommonEdge()</code>, x is the <code>accuracy</code>.</p>
+<p><code>ce</code> is an object of type <code>CommonEdge()</code>, x is the number of quadrature points on the integration path $[0,1]$.</p>
 <p>An example of this case can be found at the end of the common_edge_non_parameterized.jl file in the example folder.</p>
 <p><a id='Common-Vertex-1'></a></p>
 <h3 id="common-vertex">Common Vertex</h3>
@@ -167,14 +184,14 @@
 <p>Again the order of the input arguments must be taken into account: The first argument of both charts must be equal, the order of <code>P2</code> and <code>P3</code> with respect to <code>sourcechart</code> and the order of <code>P4</code> and <code>P5</code> with respect to <code>testchart</code> does not matter.  Consequently, the first argument is the vertex both triangles have in common.</p>
 <p>The last argument is created by</p>
 <p><code>cv = CommonVertex(x)</code>.</p>
-<p><code>cv</code> is an object of type <code>CommonVertex()</code>, x is the <code>accuracy</code>.</p>
+<p><code>cv</code> is an object of type <code>CommonVertex()</code>, x is the number of quadrature points on the integration path $[0,1]$.</p>
 <p>An example of this case can be found at the end of the common_vertex_non_parameterized.jl file in the example folder.</p>
 <p><a id='Positive-Distance-1'></a></p>
 <h3 id="positive-distance">Positive Distance</h3>
 <p>As the triangles do not touch at all, the integration becomes a simple quadrature. Therefore the order of the arguments within the two <code>simplexfunction()</code>'s no longer matter.</p>
 <p>The last argument can be created by</p>
 <p><code>pd = PositiveDistance(x)</code>.</p>
-<p><code>pd</code> is an object of type <code>PositiveDistance()</code>, x is the <code>accuracy</code>.</p>
+<p><code>pd</code> is an object of type <code>PositiveDistance()</code>, x is the rule of how many quadrature points are created on both triangles.</p>
 <p>An example of this case can be found at the end of the positive_distance_non_parameterized.jl file in the example folder.</p>
               
             </div>
