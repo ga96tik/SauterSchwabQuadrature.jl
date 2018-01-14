@@ -8,6 +8,8 @@ Julia Implementation of the Sauter-Schwab quadrature rules
 
 [![codecov.io](http://codecov.io/github/ga96tik/SauterSchwabQuadrature.jl/coverage.svg?branch=master)](http://codecov.io/github/ga96tik/SauterSchwabQuadrature.jl?branch=master)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/github/ga96tik/SauterSchwabQuadrature.jl?svg=true)](https://https://ci.appveyor.com/project/ga96tik/sauterschwabquadrature-jl)
+
 [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://ga96tik.github.io/SauterSchwabQuadrature.jl/latest)
 
 # References
