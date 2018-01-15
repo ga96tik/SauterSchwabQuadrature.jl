@@ -23,7 +23,7 @@ As the solving algorithm works for a wide range of basisfunctions and kernels, a
 
 3.The kernel must be Cauchy-Singular
 
-Depending on the input data, two different implementations of the integral are contained in this package. The first one is very convenient to handle, and does not need a parameterization; but it works only for flat triangles, and the user has to be familiar with the functions `simplex()` and `point()` of the package CompScienceMeshes. The second implementation contains only the integration rules; so the user has to build the parameterization by himself, but therefore it also works for curved triangles.
+Depending on the input data, two different implementations of the integral are contained in this package. The first one is very convenient to handle, and does not need a parameterization; but it works only for flat triangles, and the user has to be familiar with the functions `simplex()` and `point()` of the package CompScienceMeshes. For more information about CompScienceMeshes and its functions, the user should visit its GitHub page (https://github.com/krcools/CompScienceMeshes.jl) and its documentation (https://krcools.github.io/CompScienceMeshes.jl/latest/). The second implementation contains only the integration rules; so the user has to build the parameterization by himself, but therefore it also works for curved triangles.
 
 Both implementations are called by a function, which looks like:  
 
@@ -33,6 +33,6 @@ Both implementations are called by a function, which looks like:
 
 On the pages 'Non-Parameterized' and 'Parameterized', the user will find more information about the two implementations, and how to operate those.
 
-Before using this package, CompScienceMeshes has to be installed; even if the user does not need it (second implementation), this package depends internally on CompScienceMeshes.  
+As soon as this package is added to a local machine, CompScinceMeshes will be added as well.  
 
 This documentation does not derive the integration rules, and how the integration is done, it only shows how to handle this package. If the user wants to know more about how this package operates, he has to go inside the src folder and look up for the book quoted in the README file.
