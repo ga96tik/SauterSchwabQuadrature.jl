@@ -43,7 +43,7 @@ return(output)
 end
 
 
-result = sauterschwab_parameterized(Sc, Tc, INTEGRAND, ce)
+result = sauterschwab_parameterized(INTEGRAND, ce)
 
 
 println(result)

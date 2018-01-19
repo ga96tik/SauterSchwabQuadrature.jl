@@ -1,4 +1,4 @@
-include("parametrisation.jl")
+include("parameterization.jl")
 
 function verifintegral1(sourcechart, testchart, integrand, accuracy)
 

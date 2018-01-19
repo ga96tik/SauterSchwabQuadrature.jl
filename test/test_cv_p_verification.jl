@@ -29,7 +29,7 @@ function integrand(x,y)
   	return(output)
  end
 
- result = sauterschwab_parameterized(Sourcechart, Testchart, INTEGRAND, cv)-
+ result = sauterschwab_parameterized(INTEGRAND, cv)-
  			verifintegral2(Sourcechart, Testchart, integrand, Accuracy)
 
 @test norm(result) < 1.e-3

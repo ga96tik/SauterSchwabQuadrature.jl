@@ -182,7 +182,7 @@ end
 
 
 
-function sauterschwab_parameterized(sourcechart, testchart, integrand, method::CommonFace)
+function sauterschwab_parameterized(integrand, method::CommonFace)
 
 	global  Kernel
 	Kernel = integrand
@@ -202,7 +202,7 @@ end
 
 
 
-function sauterschwab_parameterized(sourcechart, testchart, integrand, method::CommonEdge)
+function sauterschwab_parameterized(integrand, method::CommonEdge)
 
 	global Kernel
 	Kernel = integrand
@@ -222,7 +222,7 @@ end
 
 
 
-function sauterschwab_parameterized(sourcechart, testchart, integrand, method::CommonVertex)
+function sauterschwab_parameterized(integrand, method::CommonVertex)
 
 	global Kernel
 	Kernel = integrand
@@ -242,7 +242,7 @@ end
 
 
 
-function sauterschwab_parameterized(sourcechart, testchart, integrand, method::PositiveDistance)
+function sauterschwab_parameterized(integrand, method::PositiveDistance)
 
 	global Kernel
 	Kernel = integrand
