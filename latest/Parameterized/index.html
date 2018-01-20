@@ -119,25 +119,26 @@
                 <p><a id='Parameterized-1'></a></p>
 <h1 id="parameterized">Parameterized</h1>
 <p>The called function in this implementation looks like:</p>
-<p><code>sauterschwab_parameterized(integrand, method)</code></p>
-<p>As on the homepage already mentioned, the user has now to parameterize the integration areas by himself; that means that <code>integrand</code> is no more the original function which has to be integrated; <code>integrand</code> is now the parameterized version of the original integrand, including the two surface elements of both charts.</p>
-<p>Before the parameterizations/charts (parameterization = chart) are built, the user has to figure out, which integration method should be applied, and decide how accurate the integration shall be done. It is recommended that the user read the page 'Non-Parameterized' before he continues reading here because otherwise he may not be able to apply the concepts of 'integration method' and 'accuracy'.</p>
+<p><code>sauterschwab_parameterized(integrand, method)</code>.</p>
+<p>As on the homepage already mentioned, the user has now to parameterize the integration areas by himself; that means, that <code>integrand</code> is no more the original function that has to be integrated; <code>integrand</code> is now the parameterized version of the original integrand, including the two surface elements of both charts.</p>
+<p>Before the parameterizations/charts (parameterization = chart) are built, the user has to figure out which integration method should be applied, and decide how accurate the integration shall be done. It is recommended that the user read the page 'Non-Parameterized' before he continues reading here because otherwise, he may not be able to apply the concepts of 'integration method' and 'accuracy'.</p>
 <p>The parameterization of the sourcetriangle will be called $\chi_t$, and the parameterization of the testtriangle will be called $\chi_\tau$. In the following, the parameterization of every single integration method will be presented.</p>
 <p><a id='Common-Face-1'></a></p>
 <h2 id="common-face">Common Face</h2>
 <p>$\Gamma$ and $\Gamma'$ are equal, and both parameterizations must be equal as well: $\chi_t(u',v') = \chi_\tau(u,v)$.</p>
 <p><img alt="" src="../assets/CommonFace.jpg" /></p>
-<p>The user's task is to find a parameterization, which maps the reference triangle (right) onto the real triangle (left). The reference triangle is throughout this package always the same.</p>
+<p>The user's task is to find a parameterization which maps the reference triangle (right) onto the real triangle (left). The reference triangle is throughout this package always the same.</p>
 <p>The original integrand, which is a function of $\textbf{x}$ and $\textbf{y}$, becomes:</p>
 <p>
 <script type="math/tex; mode=display">
 f(\chi_\tau(u,v),\chi_t(u',v')) \cdot \|\frac{\partial \chi_\tau}{\partial u}\times\frac{\partial \chi_\tau}{\partial v}\| \cdot\|\frac{\partial \chi_t}{\partial u'}\times\frac{\partial \chi_t}{\partial v'}\|
 </script>
 </p>
-<p>This function method as well as the following methods, transform the two area integrals in parameters domain into four 1D integrals from zero to one, therefore the last argument can be created by</p>
+<p>.</p>
+<p>This function method as well as the following methods, transform the two area integrals in parameters domain into four 1D integrals from zero to one; therefore, the last argument is created by</p>
 <p><code>cf = CommonFace(x)</code>.</p>
 <p><code>cf</code> is an object of type <code>CommonFace()</code>; x is the number of quadrature points on the integration path $[0,1]$.</p>
-<p>An example of this case can be found in the common_face_parameterized.jl file in the example folder.</p>
+<p>An example of this case can be found in the common_face_parameterized.jl file in the examples folder.</p>
 <p><a id='Common-Edge-1'></a></p>
 <h2 id="common-edge">Common Edge</h2>
 <p>$\Gamma$ and $\Gamma'$ have an edge in common, and both parameterizations must fulfill the condition $\chi_t(s,0) = \chi_\tau(s,0)$. For example, this condition could be met if the points $(u\in[0,1];0)$ and $(u'\in[0,1];0)$ are mapped on the same point on the common edge.</p>
@@ -146,25 +147,25 @@ f(\chi_\tau(u,v),\chi_t(u',v')) \cdot \|\frac{\partial \chi_\tau}{\partial u}\ti
 <p>The last argument can be created by</p>
 <p><code>ce = CommonEdge(x)</code>.</p>
 <p><code>ce</code> is an object of type <code>CommonEdge()</code>; x is the number of quadrature points on the integration path $[0,1]$.</p>
-<p>An example of this case can be found in the common_edge_parameterized.jl file in the example folder.</p>
+<p>An example of this case can be found in the common_edge_parameterized.jl file in the examples folder.</p>
 <p><a id='Common-Vertex-1'></a></p>
 <h2 id="common-vertex">Common Vertex</h2>
-<p>$\Gamma$ and $\Gamma'$ have one vertex in common, and both parameterizations must fulfill the condition $\chi_t(0,0) = \chi_\tau(0,0)$. This condition means that the origin of both reference triangles is mapped on the common vertex.</p>
+<p>$\Gamma$ and $\Gamma'$ have one vertex in common, and both parameterizations must fulfill the condition $\chi_t(0,0) = \chi_\tau(0,0)$. This condition means, that the origin of both reference triangles is mapped on the common vertex.</p>
 <p><img alt="" src="../assets/CommonVertex.jpg" /></p>
 <p>The modified integrand looks like in the case Common Face.</p>
 <p>The last argument can be created by</p>
 <p><code>cv = CommonVertex(x)</code>.</p>
 <p><code>cv</code> is an object of type <code>CommonVertex()</code>; x is the number of quadrature points on the integration path $[0,1]$.</p>
-<p>An example of this case can be found in the common_vertex_parameterized.jl file in the example folder.</p>
+<p>An example of this case can be found in the common_vertex_parameterized.jl file in the examples folder.</p>
 <p><a id='Positive-Distance-1'></a></p>
 <h2 id="positive-distance">Positive Distance</h2>
-<p>The two triangles do not touch at all and both parameterizations need only to map from the reference triangle on to the real triangle.</p>
+<p>The two triangles do not touch at all, and both parameterizations need only to map from the reference triangle onto the real triangle.</p>
 <p><img alt="" src="../assets/PositiveDistance.jpg" /></p>
 <p>The modified integrand looks like in the case Common Face.</p>
 <p>The last argument can be created by</p>
 <p><code>pd = PositiveDistance(x)</code>.</p>
 <p><code>pd</code> is an object of type <code>PositiveDistance()</code>; x is the number of quadrature points on the integration path $[0,1]$.</p>
-<p>An example of this case can be found in the positive_distance_parameterized.jl file in the example folder.</p>
+<p>An example of this case can be found in the positive_distance_parameterized.jl file in the examples folder.</p>
               
             </div>
           </div>
