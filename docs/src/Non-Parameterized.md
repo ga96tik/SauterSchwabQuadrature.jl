@@ -19,17 +19,17 @@ The order of the input arguments within the `simplex()` function does not matter
 
 The `integrand` must be defined as a function with two input arguments; the input arguments must be 3D vectors. The name of this function is the input argument.
 
-Later the last argument `accuracy` will be discussed.
+Later on, the last argument `accuracy` will be discussed.
 
-Since, `simplex()` and `point()` are functions of CompScienceMeshes, CompScienceMeshes does not just have to be installed on the user's machine, but also be available in the current workspace; the same applies for this package as well. The two packages can be made available by
+Since `simplex()` and `point()` are functions of CompScienceMeshes, CompScienceMeshes does not just have to be installed on the user's machine, but also be available in the current workspace; the same applies for this package as well. The two packages can be made available by
 
 `using SauterSchwabQuadrature` and `using CompScienceMeshes`.
 
 These two commands must always be run at the beginning, if using this type of implementation.
 
-`sauterschwabintegral()` first modifies `testchart` and `sourcechart` with respect to the order of the arguments, within their `simplex()` functions. Secondly, depending on how many vertices both charts have in common, it generates an object of some type that contains the information of the accuracy and the integration strategy. After all of that have been done, this function will call another function with input arguments of the two modified charts, the original integrand and that new object.
+`sauterschwabintegral()` first modifies `testchart` and `sourcechart` with respect to the order of the arguments, within their `simplex()` functions. Secondly, depending on how many vertices both charts have in common, it generates an object of some type that contains the information of the accuracy and the integration strategy. After all of this has been done, this function will call another function with input arguments of the two modified charts, the original integrand and that new object.
 
-To understand the arguments `accuracy`, `accuracy_pd` and the examples stored in the example folder, the 'another called function' will be presented next:
+To understand the arguments `accuracy`, `accuracy_pd` and the examples stored in the examples folder, the 'another called function' will be presented next:
 
 
 
@@ -79,7 +79,7 @@ The called function by `sauterschwabintegral()` is:
 
  `testchart = sourcechart = simplex(P1,P2,P3)`;
 
- where, `P1`, `P2` and `P3` are the vertices of that particular triangle. Note, that both charts must be equal that means that the first argument of both charts must be equal, the second argument of both charts must be equal, and the last argument of both charts must be equal.
+where, `P1`, `P2` and `P3` are the vertices of that particular triangle. Note, that both charts must be equal, which means that the first argument of both charts must be equal, the second argument of both charts must be equal, and the last argument of both charts must be equal.
 
  The last argument can be created by
 
@@ -87,7 +87,7 @@ The called function by `sauterschwabintegral()` is:
 
 `cf` is an object of type `CommonFace()`; x is the number of quadrature points on the integration path ``[0,1]``.
 
-An example of this case can be found at the end of the common_face_non_parameterized.jl file in the examples folder.
+An example for this case can be found at the end of the common_face_non_parameterized.jl file in the examples folder.
 
 
 
@@ -108,7 +108,7 @@ The last argument can be created by
 
 `ce` is an object of type `CommonEdge()`; x is the number of quadrature points on the integration path ``[0,1]``.
 
-An example of this case can be found at the end of the common_edge_non_parameterized.jl file in the examples folder.
+An example for this case can be found at the end of the common_edge_non_parameterized.jl file in the examples folder.
 
 
 
@@ -129,7 +129,7 @@ The last argument is created by
 
 `cv` is an object of type `CommonVertex()`; x is the number of quadrature points on the integration path ``[0,1]``.
 
-An example of this case can be found at the end of the common_vertex_non_parameterized.jl file in the examples folder.
+An example for this case can be found at the end of the common_vertex_non_parameterized.jl file in the examples folder.
 
 
 
@@ -138,7 +138,7 @@ An example of this case can be found at the end of the common_vertex_non_paramet
 
 ### Positive Distance
 
-As the triangles do not touch at all, the integration can directly be calculated with Gauss´s quadrature. Therefore, the order of the arguments within the two `simplex()` functions does no longer matter.
+As the triangles do not touch at all, the integration can directly be calculated with Gauss´s quadrature. Therefore, the order of the arguments within the two `simplex()` functions do not matter.
 
 The last argument can be created by
 
@@ -146,4 +146,4 @@ The last argument can be created by
 
 `pd` is an object of type `PositiveDistance()`; x is the rule of how many quadrature points are created on both triangles.
 
-An example of this case can be found at the end of the positive_distance_non_parameterized.jl file in the examples folder.
+An example for this case can be found at the end of the positive_distance_non_parameterized.jl file in the examples folder.

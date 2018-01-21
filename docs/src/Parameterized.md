@@ -5,9 +5,9 @@ The called function in this implementation looks like:
 
 `sauterschwab_parameterized(integrand, method)`.
 
-As on the homepage already mentioned, the user has now to parameterize the integration areas by himself; that means, that `integrand` is no more the original function that has to be integrated; `integrand` is now the parameterized version of the original integrand, including the two surface elements of both charts.
+As on the homepage already mentioned, the user now has to parameterize the integration areas by himself; that means, that `integrand` is no more the original function that has to be integrated; `integrand` is now the parameterized version of the original integrand, including the two surface elements of both charts.
 
-Before the parameterizations/charts (parameterization = chart) are built, the user has to figure out which integration method should be applied, and decide how accurate the integration shall be done. It is recommended that the user read the page 'Non-Parameterized' before he continues reading here because otherwise, he may not be able to apply the concepts of 'integration method' and 'accuracy'.
+Before the parameterizations/charts (parameterization = chart) are built, the user has to figure out which integration method should be applied, and decide how accurate the integration shall be done. It is recommended, that the user read the page 'Non-Parameterized' before continuing to read here. Because otherwise, he may not be able to apply the concepts of 'integration method' and 'accuracy'.
 
 The parameterization of the sourcetriangle will be called ``\chi_t``, and the parameterization of the testtriangle will be called ``\chi_\tau``. In the following, the parameterization of every single integration method will be presented.
 
@@ -33,7 +33,7 @@ This function method as well as the following methods, transform the two area in
 
 `cf` is an object of type `CommonFace()`; x is the number of quadrature points on the integration path ``[0,1]``.
 
-An example of this case can be found in the common_face_parameterized.jl file in the examples folder.
+An example for this case can be found in the common_face_parameterized.jl file in the examples folder.
 
 
 
@@ -51,7 +51,7 @@ The last argument can be created by
 
 `ce` is an object of type `CommonEdge()`; x is the number of quadrature points on the integration path ``[0,1]``.
 
-An example of this case can be found in the common_edge_parameterized.jl file in the examples folder.
+An example for this case can be found in the common_edge_parameterized.jl file in the examples folder.
 
 
 
@@ -69,13 +69,13 @@ The last argument can be created by
 
 `cv` is an object of type `CommonVertex()`; x is the number of quadrature points on the integration path ``[0,1]``.
 
-An example of this case can be found in the common_vertex_parameterized.jl file in the examples folder.
+An example for this case can be found in the common_vertex_parameterized.jl file in the examples folder.
 
 
 
 ## Positive Distance
 
-The two triangles do not touch at all, and both parameterizations need only to map from the reference triangle onto the real triangle.
+The two triangles do not touch at all, and both parameterizations only need to map from the reference triangle onto the real triangle.
 
 ![](assets/PositiveDistance.jpg)
 
@@ -87,4 +87,4 @@ The last argument can be created by
 
 `pd` is an object of type `PositiveDistance()`; x is the number of quadrature points on the integration path ``[0,1]``.
 
-An example of this case can be found in the positive_distance_parameterized.jl file in the examples folder.
+An example for this case can be found in the positive_distance_parameterized.jl file in the examples folder.
