@@ -1,6 +1,7 @@
 include("parameterization.jl")
 
-function verifintegral1(sourcechart, testchart, integrand, accuracy)
+function verifintegral1(sourcechart::CompScienceMeshes.Simplex{3,2,1,3,Float64},
+	 testchart::CompScienceMeshes.Simplex{3,2,1,3,Float64}, integrand, accuracy::Int64)
 
 	global Kernel, p0, p1, p2
 
@@ -23,7 +24,8 @@ end
 
 
 
-function verifintegral2(sourcechart, testchart, integrand, accuracy)
+function verifintegral2(sourcechart::CompScienceMeshes.Simplex{3,2,1,3,Float64},
+	 testchart::CompScienceMeshes.Simplex{3,2,1,3,Float64}, integrand, accuracy::Int64)
 
 	qps1 = quadpoints(sourcechart, accuracy)
 	qps2 = quadpoints(testchart, accuracy)
