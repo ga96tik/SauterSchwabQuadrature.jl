@@ -1,5 +1,5 @@
 using CompScienceMeshes
-using Base.Test
+using Test
 using SauterSchwabQuadrature
 
 include("verificationintegral.jl")

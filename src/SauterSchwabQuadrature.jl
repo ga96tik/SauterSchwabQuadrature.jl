@@ -1,5 +1,7 @@
 module SauterSchwabQuadrature
 
+using LinearAlgebra
+
 using CompScienceMeshes
 
 
