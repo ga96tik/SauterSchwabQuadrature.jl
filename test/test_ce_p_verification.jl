@@ -71,7 +71,7 @@ for (x,w1) in q1
         g = rt(y)
         G = kernel(x,y)
         ds = w1*w2
-        iref += SMatrix{M,N}([dot(f[i][1], G*g[j][1])*ds for i=1:M, j=1:N])
+        global iref += SMatrix{M,N}([dot(f[i][1], G*g[j][1])*ds for i=1:M, j=1:N])
     end
 end
 
