@@ -1,7 +1,4 @@
-export sauterschwabintegral, sauterschwab_nonparameterized, sauterschwab_parameterized
-export CommonFace, CommonEdge, CommonVertex, PositiveDistance
-
-include(Pkg.dir("SauterSchwabQuadrature","test","verificationintegral.jl"))
+#include(Pkg.dir("SauterSchwabQuadrature","test","verificationintegral.jl"))
 
 
 struct CommonFace <: Any		acc::Int64		end
