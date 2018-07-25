@@ -17,8 +17,8 @@ function sauterschwabintegral(sourcechart::CompScienceMeshes.Simplex{3,2,1,3,Flo
 	 							testchart::CompScienceMeshes.Simplex{3,2,1,3,Float64},
 								 integrand, accuracy::Int64, accuracy_pd::Int64)
 
-	index_equal_src = findin(sourcechart.vertices, testchart.vertices)
-	index_equal_tst = findin(testchart.vertices, sourcechart.vertices)
+	index_equal_src = findall(in(testchart.vertices), sourcechart.vertices)
+	index_equal_tst = findall(in(sourcechart.vertices), testchart.vertices)
 
 	m = length(index_equal_src)
 
@@ -29,8 +29,8 @@ function sauterschwabintegral(sourcechart::CompScienceMeshes.Simplex{3,2,1,3,Flo
 		method = PositiveDistance(accuracy_pd)
 
 	elseif m == 1
-		SOURCECHART = Array{Any}(3)
-		TESTCHART = Array{Any}(3)
+		SOURCECHART = Array{Any}(undef, 3)
+		TESTCHART = Array{Any}(undef, 3)
 
 		SOURCECHART[2] = sourcechart.vertices[2]
 		TESTCHART[2] = testchart.vertices[2]
@@ -46,8 +46,8 @@ function sauterschwabintegral(sourcechart::CompScienceMeshes.Simplex{3,2,1,3,Flo
 		method = CommonVertex(accuracy)
 
 	elseif m == 2
-		SOURCECHART = Array{Any}(3)
-		TESTCHART = Array{Any}(3)
+		SOURCECHART = Array{Any}(undef, 3)
+		TESTCHART = Array{Any}(undef, 3)
 
 		SOURCECHART[2] = sourcechart.vertices[2]
 		TESTCHART[2] = testchart.vertices[2]

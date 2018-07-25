@@ -1,5 +1,7 @@
 using SauterSchwabQuadrature
-using Base.Test
+
+using LinearAlgebra
+using Test
 
 include("test_ce_np_verification.jl")
 include("test_cf_np_verification.jl")
