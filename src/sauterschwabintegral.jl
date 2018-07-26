@@ -7,27 +7,6 @@ struct CommonVertex <:Any		acc::Int64		end
 struct PositiveDistance <:Any	acc::Int64		end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function sauterschwab_parameterized(integrand, method::CommonFace)
 
 	qps = quadpoints(simplex(point(0), point(1)), method.acc)

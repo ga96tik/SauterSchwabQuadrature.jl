@@ -31,3 +31,8 @@ result = sauterschwab_parameterized(INTEGRAND, cf)-
 		   verifintegral1(Sourcechart, Testchart, integrand, Accuracy)
 
 @test norm(result) < 1.e-3
+
+rt = BEAST.RTRefSpace{Float64}()
+kernel2 = (x,y) -> 1.0
+igd = generate_integrand_uv(kernel2, rt, rt, Testchart, Sourcechart)
+i5 = sauterschwab_parameterized(igd, CommonFace(10))
