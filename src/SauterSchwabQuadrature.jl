@@ -5,7 +5,7 @@ using CompScienceMeshes
 using StaticArrays
 
 export sauterschwab_parameterized
-export CommonFace, CommonEdge, CommonVertex, PositiveDistance
+export SauterSchwabStrategy, CommonFace, CommonEdge, CommonVertex, PositiveDistance
 export generate_integrand_uv
 
 
@@ -39,6 +39,7 @@ four axes of the final rectangular (ξ,η) integration domain (see [1], Ch 5).
 """
 function sauterschwab_parameterized end
 
+include("reorder_vertices.jl")
 include("pulled_back_integrands.jl")
 include("sauterschwabintegral.jl")
 include("parametric_kernel_generator.jl")

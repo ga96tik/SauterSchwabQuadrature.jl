@@ -1,10 +1,12 @@
 #include(Pkg.dir("SauterSchwabQuadrature","test","verificationintegral.jl"))
 
 
-struct CommonFace <: Any		acc::Int64		end
-struct CommonEdge <:Any			acc::Int64		end
-struct CommonVertex <:Any		acc::Int64		end
-struct PositiveDistance <:Any	acc::Int64		end
+abstract type SauterSchwabStrategy end
+
+struct CommonFace <: SauterSchwabStrategy		acc::Int64		end
+struct CommonEdge <:SauterSchwabStrategy        acc::Int64		end
+struct CommonVertex <:SauterSchwabStrategy		acc::Int64		end
+struct PositiveDistance <:SauterSchwabStrategy	acc::Int64		end
 
 
 function sauterschwab_parameterized(integrand, method::CommonFace)
