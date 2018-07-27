@@ -33,3 +33,46 @@ function integrand(x,y)
  			verifintegral2(Sourcechart, Testchart, integrand, Accuracy)
 
 @test norm(result) < 1.e-3
+
+
+kernel(x,y) = 1/norm(cartesian(x)-cartesian(y))
+
+t1 = simplex(
+    @SVector[0.180878, -0.941848, -0.283207],
+    @SVector[0.0, -0.980785, -0.19509],
+    @SVector[0.0, -0.92388, -0.382683])
+t2 = simplex(
+    @SVector[0.180878, -0.941848, -0.283207],
+    @SVector[0.373086, -0.881524, -0.289348],
+    @SVector[0.294908, -0.944921, -0.141962])
+
+@test indexin(t1.vertices, t2.vertices) == [1, nothing, nothing]
+
+rt = BEAST.RTRefSpace{Float64}()
+igd = generate_integrand_uv(kernel, rt, rt, t1, t2)
+
+i5 = sauterschwab_parameterized(igd, CommonVertex(5))
+i10 = sauterschwab_parameterized(igd, CommonVertex(10))
+
+# brute numerical approach
+q1 = quadpoints(t1, 10)
+q2 = quadpoints(t2, 10)
+
+M = N = numfunctions(rt)
+iref = zero(i5)
+for (x,w1) in q1
+    f = rt(x)
+    for (y,w2) in q2
+        g = rt(y)
+        G = kernel(x,y)
+        ds = w1*w2
+        global iref += SMatrix{M,N}([dot(f[i][1], G*g[j][1])*ds for i=1:M, j=1:N])
+    end
+end
+
+include(joinpath(dirname(@__FILE__,),"numquad.jl"))
+ibf = numquad(kernel, rt, rt, t1, t2, zero(i5))
+
+@test i5  ≈ iref atol=1e-7
+@test i10 ≈ iref atol=1e-7
+@test i10 ≈ ibf  atol=1e-8

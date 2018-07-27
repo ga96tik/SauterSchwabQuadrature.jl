@@ -1,10 +1,32 @@
 function numquad(integrand, test_local_space, trial_local_space,
     test_chart, trial_chart, out)
 
-    outer_qps = quadpoints(test_chart, 6)
+    outer_qps = quadpoints(test_chart, 10)
+    inner_qps = quadpoints(trial_chart, 11)
 
-    inner_ksi = quadpoints(simplex(point(0),point(1)), 10)
-    inner_eta = quadpoints(simplex(point(0),point(1)), 10)
+    M = numfunctions(test_local_space)
+    N = numfunctions(trial_local_space)
+
+    for (x,wx) in outer_qps
+        f = test_local_space(x)
+        for (y,wy) in inner_qps
+            g = trial_local_space(y)
+            G = integrand(x,y)
+            ds = wx * wy
+            out += SMatrix{M,N}([dot(f[i][1], G*g[j][1]) for i ∈ 1:M, j ∈ 1:N])*ds
+        end
+    end
+
+    out
+end
+
+function numquad_cf(integrand, test_local_space, trial_local_space,
+    test_chart, trial_chart, out)
+
+    outer_qps = quadpoints(test_chart, 10)
+
+    inner_ksi = quadpoints(simplex(point(0),point(1)), 13)
+    inner_eta = quadpoints(simplex(point(0),point(1)), 13)
 
     @assert sum(w for (x,w) in inner_ksi) ≈ 1
     @assert sum(w for (x,w) in inner_eta) ≈ 1
@@ -12,8 +34,6 @@ function numquad(integrand, test_local_space, trial_local_space,
     @assert sum(w for (p,w) in outer_qps) ≈ volume(test_chart)
     @assert sum(w1*w2*(1-cartesian(p2)[1]) for (p1,w1) in inner_ksi for (p2,w2) in inner_eta) ≈ 0.5
 
-    @info "hi"
-    println("koe")
     p1, p2, p3 = trial_chart.vertices
 
     M = numfunctions(test_local_space)
@@ -75,8 +95,6 @@ function numquad(integrand, test_local_space, trial_local_space,
                 g1 = trial_local_space(neighborhood(trial_chart,carttobary(trial_chart,cartesian(y1))))
                 g2 = trial_local_space(neighborhood(trial_chart,carttobary(trial_chart,cartesian(y2))))
                 g3 = trial_local_space(neighborhood(trial_chart,carttobary(trial_chart,cartesian(y3))))
-                # g2 = trial_local_space(y2)
-                # g3 = trial_local_space(y3)
 
                 @assert length(g1) == 3
                 @assert length(g2) == 3
@@ -95,55 +113,19 @@ function numquad(integrand, test_local_space, trial_local_space,
                 G2 = integrand(x,y2)*jacobian(y2)
                 G3 = integrand(x,y3)*jacobian(y3)
 
-                # @assert G1 == 2*volume(s1)
-                # @assert G2 == 2*volume(s2)
-                # @assert G3 == 2*volume(s3)
-                # @assert G1+G2+G3 ≈ 2*volume(trial_chart)
-
                 @assert wksi > 0
                 @assert weta > 0
                 @assert wx*wuv > 0
 
-                L = @SVector [1.0, 1.0, 1.0]
-                R = @SVector [1.0, 1.0, 1.0]
-
-                @show L, R, G1*R
-                @show dot(L,G1*R)
-
-
-
                 check += wx*wuv
                 inner_check += wuv
-                # @assert dot(L, (G1+G2+G3)*R) ≈ 3*2*volume(trial_chart)
 
-                @show f[1][1]
-                @show f[2][1]
-                @show f[3][1]
-
-                # @show SMatrix{M,N}([dot(f[i][1], G1*g1[j][1]+G2*g2[j][1]+G3*g3[j][1]) for i=1:M, j=1:N])
-                # println(@SMatrix [
-                #     dot(f[1][1], (G1*g1[1][1])) dot(f[1][1], (G1*g1[2][1])) dot(f[1][1], (G1*g1[3][1]))
-                #     dot(f[2][1], (G1*g1[1][1])) dot(f[2][1], (G1*g1[2][1])) dot(f[2][1], (G1*g1[3][1]))
-                #     dot(f[3][1], (G1*g1[1][1])) dot(f[3][1], (G1*g1[2][1])) dot(f[3][1], (G1*g1[3][1])) ])
-
-                # out += wx*wuv*(
-                #     SMatrix{M,N}([dot(f[i][1], G1*g1[j][1]) for i=1:M, j=1:N]) +
-                #     SMatrix{M,N}([dot(f[i][1], G2*g2[j][1]) for i=1:M, j=1:N]) +
-                #     SMatrix{M,N}([dot(f[i][1], G3*g3[j][1]) for i=1:M, j=1:N]))
-                out += wx*wuv*(
-                        SMatrix{M,N}([dot(f[i][1], (G1*g1[j][1]+G2*g2[j][1]+G3*g3[j][1])) for i=1:M, j=1:N]))
-                # out += wx*wuv*(
-                #         SMatrix{M,N}([dot(L, G1*R) for i=1:M, j=1:N]) +
-                #         SMatrix{M,N}([dot(L, G2*R) for i=1:M, j=1:N]) +
-                #         SMatrix{M,N}([dot(L, G3*R) for i=1:M, j=1:N]))
-
+                out += wx*wuv*(SMatrix{M,N}([dot(f[i][1], (G1*g1[j][1]+G2*g2[j][1]+G3*g3[j][1])) for i=1:M, j=1:N]))
             end
         end
         @assert inner_check ≈ 0.5
     end
 
-    @show check, volume(test_chart)*0.5
     @assert check ≈ volume(test_chart)*0.5
-    @info "done"
     out
 end
