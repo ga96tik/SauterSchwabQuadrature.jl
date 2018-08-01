@@ -27,10 +27,7 @@ function generate_integrand_uv(kernel, testref, trialref, testel, trialel)
         jy = jacobian(y)
         ds = jx*jy
 
-        M = length(f)
-        N = length(g)
-
-        return  SMatrix{M,N}([dot(f[i][1], kernelval*g[j][1])*ds for i=1:M, j=1:N])
+        return  SMatrix{3,3}([dot(f[i][1], kernelval*g[j][1])*ds for i=1:3, j=1:3])
     end
 
     return k3

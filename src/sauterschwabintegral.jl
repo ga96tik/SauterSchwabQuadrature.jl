@@ -1,5 +1,5 @@
 #include(Pkg.dir("SauterSchwabQuadrature","test","verificationintegral.jl"))
-
+using FastGaussQuadrature
 
 abstract type SauterSchwabStrategy end
 
@@ -11,7 +11,12 @@ struct PositiveDistance <:SauterSchwabStrategy	acc::Int64		end
 
 function sauterschwab_parameterized(integrand, method::CommonFace)
 
-	qps = quadpoints(simplex(point(0), point(1)), method.acc)
+	# qps = quadpoints(simplex(point(0), point(1)), method.acc)
+	p,w = gausslegendre(method.acc)
+	w ./= 2
+	p .+= 1
+	p ./= 2
+	qps = zip(p,w)
 	sum(w1*w2*w3*w4*k3p_cf(integrand, η1, η2, η3, ξ)
 		for (η1, w1) in qps, (η2, w2) in qps, (η3, w3) in qps, (ξ, w4) in qps)
 end
@@ -19,7 +24,12 @@ end
 
 function sauterschwab_parameterized(integrand, method::CommonEdge)
 
-	qps = quadpoints(simplex(point(0), point(1)), method.acc)
+	#qps = quadpoints(simplex(point(0), point(1)), method.acc)
+	p,w = gausslegendre(method.acc)
+	w ./= 2
+	p .+= 1
+	p ./= 2
+	qps = zip(p,w)
 	sum(w1*w2*w3*w4*k3p_ce(integrand, η1, η2, η3, ξ)
 		for (η1, w1) in qps, (η2, w2) in qps, (η3, w3) in qps, (ξ, w4) in qps)
 end
@@ -27,7 +37,12 @@ end
 
 function sauterschwab_parameterized(integrand, method::CommonVertex)
 
-	qps = quadpoints(simplex(point(0), point(1)), method.acc)
+	# qps = quadpoints(simplex(point(0), point(1)), method.acc)
+	p,w = gausslegendre(method.acc)
+	w ./= 2
+	p .+= 1
+	p ./= 2
+	qps = zip(p,w)
 	sum(w1*w2*w3*w4*k3p_cv(integrand,η1, η2, η3, ξ)
 		for (η1, w1) in qps, (η2, w2) in qps, (η3, w3) in qps, (ξ, w4) in qps)
 end
@@ -35,6 +50,7 @@ end
 
 function sauterschwab_parameterized(integrand, method::PositiveDistance)
 
+	@info "Disallow for now..."
 	qps = quadpoints(simplex(point(0), point(1)), method.acc)
 	sum(w1*w2*w3*w4*k3p_pd(integrand, η1, η2, η3, ξ)
 		for (η1, w1) in qps, (η2, w2) in qps, (η3, w3) in qps, (ξ, w4) in qps)

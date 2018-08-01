@@ -39,9 +39,9 @@ four axes of the final rectangular (ξ,η) integration domain (see [1], Ch 5).
 """
 function sauterschwab_parameterized end
 
-include("reorder_vertices.jl")
 include("pulled_back_integrands.jl")
 include("sauterschwabintegral.jl")
+include("reorder_vertices.jl")
 include("parametric_kernel_generator.jl")
 
 end
