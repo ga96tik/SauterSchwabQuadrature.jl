@@ -14,7 +14,7 @@ Sourcechart = simplex(pI,pIII,pII)
 Testchart = simplex(pI,pIV,pV)
 
 Accuracy = 12
-cv = CommonVertex(Accuracy)
+cv = CommonVertex(SauterSchwabQuadrature._legendre(Accuracy,0.0,1.0))
 
 function integrand(x,y)
 			return(((x-pI)'*(y-pV))*exp(-im*1*norm(x-y))/(4pi*norm(x-y)))
@@ -51,8 +51,8 @@ t2 = simplex(
 rt = BEAST.RTRefSpace{Float64}()
 igd = generate_integrand_uv(kernel, rt, rt, t1, t2)
 
-i5 = sauterschwab_parameterized(igd, CommonVertex(5))
-i10 = sauterschwab_parameterized(igd, CommonVertex(10))
+i5 = sauterschwab_parameterized(igd, CommonVertex(SauterSchwabQuadrature._legendre(5,0.0,1.0)))
+i10 = sauterschwab_parameterized(igd, CommonVertex(SauterSchwabQuadrature._legendre(10,0.0,1.0)))
 
 # brute numerical approach
 q1 = quadpoints(t1, 10)

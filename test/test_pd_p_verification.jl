@@ -15,7 +15,7 @@ Sourcechart = simplex(pI,pII,pIII)
 Testchart = simplex(pVI,pVII,pVIII)
 
 Accuracy = 12
-pd = PositiveDistance(Accuracy)
+pd = PositiveDistance(SauterSchwabQuadrature._legendre(Accuracy,0.0,1.0))
 
 function integrand(x,y)
 			return(((x-pI)'*(y-pVII))*exp(-im*1*norm(x-y))/(4pi*norm(x-y)))

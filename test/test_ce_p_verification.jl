@@ -17,7 +17,7 @@ Sourcechart = simplex(pI,pIII,pII)
 Testchart = simplex(pI,pIV,pII)
 
 Accuracy = 12
-ce = CommonEdge(Accuracy)
+ce = CommonEdge(SauterSchwabQuadrature._legendre(Accuracy,0.0,1.0))
 
 function integrand(x,y)
 			return(((x-pI)'*(y-pII))*exp(-im*1*norm(x-y))/(4pi*norm(x-y)))
@@ -55,9 +55,9 @@ t2 = simplex(
 rt = BEAST.RTRefSpace{Float64}()
 igd = generate_integrand_uv(kernel, rt, rt, t1, t2)
 
-i5 = sauterschwab_parameterized(igd, CommonEdge(5))
-i10 = sauterschwab_parameterized(igd, CommonEdge(10))
-i15 = sauterschwab_parameterized(igd, CommonEdge(15))
+i5 = sauterschwab_parameterized(igd, CommonEdge(SauterSchwabQuadrature._legendre(5,0.0,1.0)))
+i10 = sauterschwab_parameterized(igd, CommonEdge(SauterSchwabQuadrature._legendre(10,0.0,1.0)))
+i15 = sauterschwab_parameterized(igd, CommonEdge(SauterSchwabQuadrature._legendre(15,0.0,1.0)))
 
 # brute numerical approach
 q1 = quadpoints(t1, 10)
@@ -99,9 +99,9 @@ function kernel2nd(x,y)
 end
 
 igd = generate_integrand_uv(kernel2nd, rt, rt, t1, t2)
-i10 = sauterschwab_parameterized(igd, CommonEdge(10))
-i15 = sauterschwab_parameterized(igd, CommonEdge(15))
-i20 = sauterschwab_parameterized(igd, CommonEdge(20))
+i10 = sauterschwab_parameterized(igd, CommonEdge(SauterSchwabQuadrature._legendre(10,0.0,1.0)))
+i15 = sauterschwab_parameterized(igd, CommonEdge(SauterSchwabQuadrature._legendre(15,0.0,1.0)))
+i20 = sauterschwab_parameterized(igd, CommonEdge(SauterSchwabQuadrature._legendre(20,0.0,1.0)))
 # i25 = sauterschwab_parameterized(igd, CommonEdge(25))
 # i30 = sauterschwab_parameterized(igd, CommonEdge(30))
 # i35 = sauterschwab_parameterized(igd, CommonEdge(35))

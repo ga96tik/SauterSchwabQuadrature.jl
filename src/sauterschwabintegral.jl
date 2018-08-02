@@ -3,20 +3,27 @@ using FastGaussQuadrature
 
 abstract type SauterSchwabStrategy end
 
-struct CommonFace <: SauterSchwabStrategy		acc::Int64		end
-struct CommonEdge <:SauterSchwabStrategy        acc::Int64		end
-struct CommonVertex <:SauterSchwabStrategy		acc::Int64		end
-struct PositiveDistance <:SauterSchwabStrategy	acc::Int64		end
+struct CommonFace{A}       <: SauterSchwabStrategy qps::A end
+struct CommonEdge{A}       <: SauterSchwabStrategy qps::A end
+struct CommonVertex{A}     <: SauterSchwabStrategy qps::A end
+struct PositiveDistance{A} <: SauterSchwabStrategy qps::A end
 
+function _legendre(n,a,b)
+    x, w = FastGaussQuadrature.gausslegendre(n)
+    w .*= (b-a)/2
+    x = (x.+1)/2*(b-a).+a
+    collect(zip(x,w))
+end
 
 function sauterschwab_parameterized(integrand, method::CommonFace)
 
 	# qps = quadpoints(simplex(point(0), point(1)), method.acc)
-	p,w = gausslegendre(method.acc)
-	w ./= 2
-	p .+= 1
-	p ./= 2
-	qps = zip(p,w)
+	# p,w = gausslegendre(method.acc)
+	# w ./= 2
+	# p .+= 1
+	# p ./= 2
+	# qps = zip(p,w)
+	qps = method.qps
 	sum(w1*w2*w3*w4*k3p_cf(integrand, η1, η2, η3, ξ)
 		for (η1, w1) in qps, (η2, w2) in qps, (η3, w3) in qps, (ξ, w4) in qps)
 end
@@ -25,11 +32,12 @@ end
 function sauterschwab_parameterized(integrand, method::CommonEdge)
 
 	#qps = quadpoints(simplex(point(0), point(1)), method.acc)
-	p,w = gausslegendre(method.acc)
-	w ./= 2
-	p .+= 1
-	p ./= 2
-	qps = zip(p,w)
+	# p,w = gausslegendre(method.acc)
+	# w ./= 2
+	# p .+= 1
+	# p ./= 2
+	# qps = zip(p,w)
+	qps = method.qps
 	sum(w1*w2*w3*w4*k3p_ce(integrand, η1, η2, η3, ξ)
 		for (η1, w1) in qps, (η2, w2) in qps, (η3, w3) in qps, (ξ, w4) in qps)
 end
@@ -38,11 +46,12 @@ end
 function sauterschwab_parameterized(integrand, method::CommonVertex)
 
 	# qps = quadpoints(simplex(point(0), point(1)), method.acc)
-	p,w = gausslegendre(method.acc)
-	w ./= 2
-	p .+= 1
-	p ./= 2
-	qps = zip(p,w)
+	# p,w = gausslegendre(method.acc)
+	# w ./= 2
+	# p .+= 1
+	# p ./= 2
+	# qps = zip(p,w)
+	qps = method.qps
 	sum(w1*w2*w3*w4*k3p_cv(integrand,η1, η2, η3, ξ)
 		for (η1, w1) in qps, (η2, w2) in qps, (η3, w3) in qps, (ξ, w4) in qps)
 end
@@ -51,7 +60,8 @@ end
 function sauterschwab_parameterized(integrand, method::PositiveDistance)
 
 	@info "Disallow for now..."
-	qps = quadpoints(simplex(point(0), point(1)), method.acc)
+	# qps = quadpoints(simplex(point(0), point(1)), method.acc)
+	qps = method.qps
 	sum(w1*w2*w3*w4*k3p_pd(integrand, η1, η2, η3, ξ)
 		for (η1, w1) in qps, (η2, w2) in qps, (η3, w3) in qps, (ξ, w4) in qps)
 end

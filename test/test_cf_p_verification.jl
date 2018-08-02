@@ -11,7 +11,7 @@ pIII = point(7,1,0)
 Sourcechart = Testchart = simplex(pI, pII, pIII)
 
 Accuracy = 12
-cf = CommonFace(Accuracy)
+cf = CommonFace(SauterSchwabQuadrature._legendre(Accuracy,0.0,1.0))
 
 function integrand(x,y)
 			return(((x-pI)'*(y-pII))*exp(-im*1*norm(x-y))/(4pi*norm(x-y)))
@@ -53,8 +53,8 @@ t1 = simplex(
     @SVector[0.0, -0.980785, -0.19509],
     @SVector[0.0, -0.92388, -0.382683])
 
-i5 = sauterschwab_parameterized(igd, CommonFace(5))
-i10 = sauterschwab_parameterized(igd, CommonFace(10))
+i5 = sauterschwab_parameterized(igd, CommonFace(SauterSchwabQuadrature._legendre(5,0.0,1.0)))
+i10 = sauterschwab_parameterized(igd, CommonFace(SauterSchwabQuadrature._legendre(10,0.0,1.0)))
 
 iref = numquad_cf(kernel_cf, rt, rt, t1, t1, zero(i5))
 
