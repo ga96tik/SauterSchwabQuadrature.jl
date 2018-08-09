@@ -2,8 +2,6 @@ using CompScienceMeshes
 using Test
 using SauterSchwabQuadrature
 
-include("verificationintegral.jl")
-
 pI = point(1,5,3)
 pII = point(2,5,3)
 pIII = point(7,1,0)
@@ -48,7 +46,7 @@ t2 = simplex(
 
 @test indexin(t1.vertices, t2.vertices) == [1, nothing, nothing]
 
-rt = BEAST.RTRefSpace{Float64}()
+rt = RTRefSpace{Float64}()
 igd = generate_integrand_uv(kernel, rt, rt, t1, t2)
 
 i5 = sauterschwab_parameterized(igd, CommonVertex(SauterSchwabQuadrature._legendre(5,0.0,1.0)))

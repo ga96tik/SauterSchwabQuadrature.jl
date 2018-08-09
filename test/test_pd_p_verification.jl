@@ -2,8 +2,6 @@ using CompScienceMeshes
 using Test
 using SauterSchwabQuadrature
 
-include("verificationintegral.jl")
-
 pI = point(1,5,3)
 pII = point(2,5,3)
 pIII = point(7,1,0)

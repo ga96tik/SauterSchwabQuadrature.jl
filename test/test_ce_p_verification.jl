@@ -4,9 +4,6 @@ using Test
 using CompScienceMeshes
 using SauterSchwabQuadrature
 using StaticArrays
-using BEAST
-
-include("verificationintegral.jl")
 
 pI = point(1,5,3)
 pII = point(2,5,3)
@@ -52,7 +49,7 @@ t2 = simplex(
 
 @test indexin(t1.vertices, t2.vertices) == [1, 2, nothing]
 
-rt = BEAST.RTRefSpace{Float64}()
+rt = RTRefSpace{Float64}()
 igd = generate_integrand_uv(kernel, rt, rt, t1, t2)
 
 i5 = sauterschwab_parameterized(igd, CommonEdge(SauterSchwabQuadrature._legendre(5,0.0,1.0)))
@@ -102,25 +99,19 @@ igd = generate_integrand_uv(kernel2nd, rt, rt, t1, t2)
 i10 = sauterschwab_parameterized(igd, CommonEdge(SauterSchwabQuadrature._legendre(10,0.0,1.0)))
 i15 = sauterschwab_parameterized(igd, CommonEdge(SauterSchwabQuadrature._legendre(15,0.0,1.0)))
 i20 = sauterschwab_parameterized(igd, CommonEdge(SauterSchwabQuadrature._legendre(20,0.0,1.0)))
-# i25 = sauterschwab_parameterized(igd, CommonEdge(25))
-# i30 = sauterschwab_parameterized(igd, CommonEdge(30))
-# i35 = sauterschwab_parameterized(igd, CommonEdge(35))
-#
-# i50 = sauterschwab_parameterized(igd, CommonEdge(50))
-# i55 = sauterschwab_parameterized(igd, CommonEdge(55))
 
 iref = numquad(kernel2nd, rt, rt, t1, t2, zero(i15))
 
-# Compare to BEAST:
-tqd = BEAST.quadpoints(rt, [t1], (12,))
-bqd = BEAST.quadpoints(rt, [t2], (13,))
-
-SE_strategy = BEAST.WiltonSEStrategy(
-  tqd[1,1],
-  BEAST.DoubleQuadStrategy(
-	tqd[1,1],
-	bqd[1,1]))
-
-op = BEAST.MWDoubleLayer3D(0.0)
-z2 = zeros(3,3)
-BEAST.momintegrals!(op, rt, rt, t1, t2, z2, SE_strategy)
+# # Compare to BEAST:
+# tqd = CompScienceMeshes.quadpoints(rt, [t1], (12,))
+# bqd = CompScienceMeshes.quadpoints(rt, [t2], (13,))
+#
+# SE_strategy = BEAST.WiltonSEStrategy(
+#   tqd[1,1],
+#   BEAST.DoubleQuadStrategy(
+# 	tqd[1,1],
+# 	bqd[1,1]))
+#
+# op = BEAST.MWDoubleLayer3D(0.0)
+# z2 = zeros(3,3)
+# BEAST.momintegrals!(op, rt, rt, t1, t2, z2, SE_strategy)
