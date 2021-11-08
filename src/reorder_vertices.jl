@@ -104,10 +104,49 @@ end
 
 function reorder(t, s, strat::CommonFace)
 
+
     I = [1,2,3]
-    J = [1,2,3]
-    K = [1,2,3]
-    L = [1,2,3]
+    J = [-1,-1,-1]
+    numhits = 0
+    for (i,v) in pairs(t)
+        for (j,w) in pairs(s)
+            if norm(w-v) < eps(eltype(v)) * 1.0e3
+                J[i] = j
+                numhits += 1
+            end
+        end
+    end
+
+    @assert numhits == 3
+    @assert all(J .!= -1)
+
+    K = zeros(Int,3)
+    for i in 1:3
+        for j in 1:3
+            if I[j] == i
+                K[i] = j
+                break
+            end
+        end
+    end
+
+    L = zeros(Int,3)
+    for i in 1:3
+        for j in 1:3
+            if J[j] == i
+                L[i] = j
+                break
+            end
+        end
+    end
 
     return I, J, K, L
 end
+
+
+# function reorder(t, s, strat::CommonFace)
+
+
+#     return [1,2,3], [1,2,3], [1,2,3], [1,2,3]
+
+# end
