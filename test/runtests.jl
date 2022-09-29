@@ -3,6 +3,8 @@ using SauterSchwabQuadrature
 using LinearAlgebra
 using Test
 
+include("parametric_kernel_generator.jl")
+
 include("local_space.jl")
 include("numquad.jl")
 include("verificationintegral.jl")

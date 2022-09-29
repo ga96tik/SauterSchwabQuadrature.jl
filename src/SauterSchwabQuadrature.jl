@@ -1,7 +1,6 @@
 module SauterSchwabQuadrature
 
 using LinearAlgebra
-using CompScienceMeshes
 using StaticArrays
 
 export sauterschwab_parameterized
@@ -42,6 +41,6 @@ function sauterschwab_parameterized end
 include("pulled_back_integrands.jl")
 include("sauterschwabintegral.jl")
 include("reorder_vertices.jl")
-include("parametric_kernel_generator.jl")
+# include("parametric_kernel_generator.jl")
 
 end
