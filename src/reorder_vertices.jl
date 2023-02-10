@@ -20,8 +20,10 @@ function reorder(t,s, strat::CommonVertex)
         e == 2 && break
     end
 
-    append!(I, setdiff([1,2,3], I))
-    append!(J, setdiff([1,2,3], J))
+    #append!(I, setdiff([1,2,3], I))
+    #append!(J, setdiff([1,2,3], J))
+    append!(setdiff([1,2,3], I), I)
+    append!(setdiff([1,2,3], J), J)
 
     # # inverse permutations
     # K = indexin([1,2,3], I)
