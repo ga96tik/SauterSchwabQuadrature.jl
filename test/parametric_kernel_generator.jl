@@ -1,4 +1,4 @@
-using StaticArrays
+
 
 """
 Generates the integrand for use in the Sauter-Schwab quadrature formulas.

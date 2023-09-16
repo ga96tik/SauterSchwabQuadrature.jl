@@ -1,15 +1,28 @@
 using SauterSchwabQuadrature
-
-using LinearAlgebra
 using Test
 
-include("parametric_kernel_generator.jl")
+using LinearAlgebra
+using StaticArrays
+using CompScienceMeshes
 
-include("local_space.jl")
-include("numquad.jl")
-include("verificationintegral.jl")
+# --- testsets
+@testset "Testing SauterSchwabQuadrature functionality" begin
 
-include("test_cf_p_verification.jl")
-include("test_ce_p_verification.jl")
-include("test_cv_p_verification.jl")
-include("test_pd_p_verification.jl")
+    include("parametric_kernel_generator.jl")
+    include("local_space.jl")
+    include("numquad.jl")
+    include("verificationintegral.jl")
+
+    @testset "Triangular " begin
+        include("test_reordering.jl")
+        include("test_cf_tr.jl")
+        include("test_ce_tr.jl")
+        include("test_cv_tr.jl")
+        include("test_pd_tr.jl")
+    end
+
+    @testset "Quadrilateral " begin
+        include("test_cf_quad.jl")
+    end
+
+end

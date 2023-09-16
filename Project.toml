@@ -11,3 +11,11 @@ StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 FastGaussQuadrature = "0.3, 0.4, 0.5"
 StaticArrays = "0.12, 1"
 julia = "0.7, 1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+JuliaFormatter = "98e50ef6-434e-11e9-1051-2b60c6c9e899"
+CompScienceMeshes = "3e66a162-7b8c-5da0-b8f8-124ecd2c3ae1"
+
+[targets]
+test = ["Test", "JuliaFormatter", "CompScienceMeshes"]

@@ -33,11 +33,11 @@ function verifintegral1(sourcechart::CompScienceMeshes.Simplex{3,2,1,3,Float64},
 
 	Kernel = integrand
 
-	p0 = Sourcechart.vertices[1]
-	p1 = Sourcechart.vertices[2]
-	p2 = Sourcechart.vertices[3]
+	p0 = sourcechart.vertices[1]
+	p1 = sourcechart.vertices[2]
+	p2 = sourcechart.vertices[3]
 
-	qps1 = quadpoints(Sourcechart, accuracy)
+	qps1 = quadpoints(sourcechart, accuracy)
 
 	path = simplex(point(0), point(1))
 	qps2 = quadpoints(path, accuracy)

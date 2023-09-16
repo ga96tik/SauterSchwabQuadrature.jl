@@ -1,7 +1,7 @@
+
 # This file reproduces just enough functionality of BEAST to allow
 # for meaningful testing of non-trivial user cases
-using StaticArrays
-using CompScienceMeshes
+
 
 struct RTRefSpace{T<:Real} end
 

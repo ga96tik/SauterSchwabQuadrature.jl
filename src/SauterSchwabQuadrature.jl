@@ -14,7 +14,7 @@ export CommonFace, CommonEdge, CommonVertex, PositiveDistance
 export CommonFaceQuad, CommonEdgeQuad, CommonVertexQuad
 
 # functions
-export sauterschwab_parameterized
+export sauterschwab_parameterized, reorder
 
 
 
