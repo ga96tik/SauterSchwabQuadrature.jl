@@ -2,21 +2,36 @@ using FastGaussQuadrature
 
 abstract type SauterSchwabStrategy end
 
-struct CommonFace{A}       <: SauterSchwabStrategy qps::A end
-struct CommonEdge{A}       <: SauterSchwabStrategy qps::A end
-struct CommonVertex{A}     <: SauterSchwabStrategy qps::A end
-struct PositiveDistance{A} <: SauterSchwabStrategy qps::A end
+struct CommonFace{A} <: SauterSchwabStrategy
+    qps::A
+end
+struct CommonEdge{A} <: SauterSchwabStrategy
+    qps::A
+end
+struct CommonVertex{A} <: SauterSchwabStrategy
+    qps::A
+end
+struct PositiveDistance{A} <: SauterSchwabStrategy
+    qps::A
+end
 
-struct CommonFaceQuad{A}   <: SauterSchwabStrategy qps::A end
-struct CommonEdgeQuad{A}   <: SauterSchwabStrategy qps::A end
-struct CommonVertexQuad{A} <: SauterSchwabStrategy qps::A end
+
+struct CommonFaceQuad{A} <: SauterSchwabStrategy
+    qps::A
+end
+struct CommonEdgeQuad{A} <: SauterSchwabStrategy
+    qps::A
+end
+struct CommonVertexQuad{A} <: SauterSchwabStrategy
+    qps::A
+end
 
 
-function _legendre(n,a,b)
+function _legendre(n, a, b)
     x, w = FastGaussQuadrature.gausslegendre(n)
-    w .*= (b-a)/2
-    x = (x.+1)/2*(b-a).+a
-    collect(zip(x,w))
+    w .*= (b - a) / 2
+    x = (x .+ 1) / 2 * (b - a) .+ a
+    collect(zip(x, w))
 end
 
 
@@ -57,7 +72,6 @@ domain and representation is different from the one used in [1].
 """
 function sauterschwab_parameterized(integrand, strategy::SauterSchwabStrategy)
 
-	qps = strategy.qps
-	sum(w1*w2*w3*w4*strategy(integrand, η1, η2, η3, ξ)
-		for (η1, w1) in qps, (η2, w2) in qps, (η3, w3) in qps, (ξ, w4) in qps)
+    qps = strategy.qps
+    sum(w1 * w2 * w3 * w4 * strategy(integrand, η1, η2, η3, ξ) for (η1, w1) in qps, (η2, w2) in qps, (η3, w3) in qps, (ξ, w4) in qps)
 end

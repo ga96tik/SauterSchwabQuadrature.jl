@@ -10,7 +10,7 @@ end
 
 
 # parametrize planar quadrilateral with u, v ∈ [0,1]
-function (quad::Quadrilateral)(u, v)    
+function (quad::Quadrilateral)(u, v)
 
     return quad.p1 + u * (quad.p2 - quad.p1) + v * (quad.p4 - quad.p1) + u * v * (quad.p3 - quad.p4 + quad.p1 - quad.p2) # see, e.g., [1] page 187
 end
@@ -24,7 +24,7 @@ function jacobianDet(quad::Quadrilateral, u)
     ∂ru = quad.p2 - quad.p1 + u[2] * aux
     ∂rv = quad.p4 - quad.p1 + u[1] * aux
 
-    D = (∂ru[2] * ∂rv[3] - ∂ru[3] * ∂rv[2])^2 + (∂ru[3] * ∂rv[1] - ∂ru[1] * ∂rv[3])^2 + (∂ru[1] * ∂rv[2] - ∂ru[2] * ∂rv[1])^2 
+    D = (∂ru[2] * ∂rv[3] - ∂ru[3] * ∂rv[2])^2 + (∂ru[3] * ∂rv[1] - ∂ru[1] * ∂rv[3])^2 + (∂ru[1] * ∂rv[2] - ∂ru[2] * ∂rv[1])^2
 
     return sqrt(D)
 end

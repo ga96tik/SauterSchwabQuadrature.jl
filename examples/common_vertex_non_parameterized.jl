@@ -3,21 +3,21 @@ using SauterSchwabQuadrature
 
 
 
-pI = point(1,5,3)
-pII = point(2,5,3)
-pIII = point(7,1,0)
-pIV = point(5,1,-3)
-pV = point(0,0,0)
+pI = point(1, 5, 3)
+pII = point(2, 5, 3)
+pIII = point(7, 1, 0)
+pIV = point(5, 1, -3)
+pV = point(0, 0, 0)
 
-Sourcechart = simplex(pI,pIII,pII)
-Testchart = simplex(pV,pIV,pI)
+Sourcechart = simplex(pI, pIII, pII)
+Testchart = simplex(pV, pIV, pI)
 
 Accuracy = 12
 
 
-function integrand(x,y)
-			return(((x-pI)'*(y-pV))*exp(-im*1*norm(x-y))/(4pi*norm(x-y)))
- end
+function integrand(x, y)
+    return (((x - pI)' * (y - pV)) * exp(-im * 1 * norm(x - y)) / (4pi * norm(x - y)))
+end
 
 
 

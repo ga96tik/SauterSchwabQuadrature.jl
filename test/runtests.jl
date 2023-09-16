@@ -4,7 +4,7 @@ using Test
 using LinearAlgebra
 using StaticArrays
 using CompScienceMeshes
-using FastGaussQuadrature
+using JuliaFormatter
 
 # --- testsets
 @testset "Testing SauterSchwabQuadrature functionality" begin
@@ -24,7 +24,7 @@ using FastGaussQuadrature
     end
 
     @testset "Quadrilateral " begin
-        
+
         include("quadrilateral_defs.jl")
 
         include("test_cf_quad.jl")
@@ -32,4 +32,8 @@ using FastGaussQuadrature
         include("test_cv_quad.jl")
     end
 
+    @testset "Test formatting of files" begin
+        pkgpath = pkgdir(SauterSchwabQuadrature)   # path of this package including name
+        @test format(pkgpath, overwrite=false)     # check whether files are formatted according to the .JuliaFormatter.toml 
+    end
 end

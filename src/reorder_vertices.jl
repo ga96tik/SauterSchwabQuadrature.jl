@@ -1,16 +1,16 @@
-function reorder(t,s, strat::CommonVertex)
+function reorder(t, s, strat::CommonVertex)
 
     # Find the permutation P of t and s that make
     # Pt = [P, A1, A2]
     # Ps = [P, B1, B2]
-    I = zeros(Int,1)
-    J = zeros(Int,1)
+    I = zeros(Int, 1)
+    J = zeros(Int, 1)
     e = 1
     for i in 1:3
         v = t[i]
         for j in 1:3
             w = s[j]
-            if norm(w-v) < eps(eltype(v)) * 1.0e3
+            if norm(w - v) < eps(eltype(v)) * 1.0e3
                 I[e] = i
                 J[e] = j
                 e += 1
@@ -20,14 +20,14 @@ function reorder(t,s, strat::CommonVertex)
         e == 2 && break
     end
 
-    append!(I, setdiff([1,2,3], I))
-    append!(J, setdiff([1,2,3], J))
+    append!(I, setdiff([1, 2, 3], I))
+    append!(J, setdiff([1, 2, 3], J))
 
     # # inverse permutations
     # K = indexin([1,2,3], I)
     # L = indexin([1,2,3], J)
 
-    K = zeros(Int,3)
+    K = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if I[j] == i
@@ -37,7 +37,7 @@ function reorder(t,s, strat::CommonVertex)
         end
     end
 
-    L = zeros(Int,3)
+    L = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if J[j] == i
@@ -53,14 +53,14 @@ end
 
 function reorder(t, s, strat::CommonEdge)
 
-    I = zeros(Int,3)
-    J = zeros(Int,3)
+    I = zeros(Int, 3)
+    J = zeros(Int, 3)
     e = 1
     for i in 1:3
         v = t[i]
         for j in 1:3
             w = s[j]
-            if norm(w-v) < eps(eltype(v)) * 1.0e3
+            if norm(w - v) < eps(eltype(v)) * 1.0e3
                 I[e] = i
                 J[e] = j
                 e += 1
@@ -68,17 +68,17 @@ function reorder(t, s, strat::CommonEdge)
             end
         end
     end
-    I[3] = setdiff([1,2,3], I[1:2])[1]
-    J[3] = setdiff([1,2,3], J[1:2])[1]
+    I[3] = setdiff([1, 2, 3], I[1:2])[1]
+    J[3] = setdiff([1, 2, 3], J[1:2])[1]
 
-    I = circshift(I,-1)
-    J = circshift(J,-1)
+    I = circshift(I, -1)
+    J = circshift(J, -1)
 
     # # inverse permutations
     # K = indexin([1,2,3], I)
     # L = indexin([1,2,3], J)
 
-    K = zeros(Int,3)
+    K = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if I[j] == i
@@ -88,7 +88,7 @@ function reorder(t, s, strat::CommonEdge)
         end
     end
 
-    L = zeros(Int,3)
+    L = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if J[j] == i
@@ -105,12 +105,12 @@ end
 function reorder(t, s, strat::CommonFace)
 
 
-    I = [1,2,3]
-    J = [-1,-1,-1]
+    I = [1, 2, 3]
+    J = [-1, -1, -1]
     numhits = 0
-    for (i,v) in pairs(t)
-        for (j,w) in pairs(s)
-            if norm(w-v) < eps(eltype(v)) * 1.0e3
+    for (i, v) in pairs(t)
+        for (j, w) in pairs(s)
+            if norm(w - v) < eps(eltype(v)) * 1.0e3
                 J[i] = j
                 numhits += 1
             end
@@ -120,7 +120,7 @@ function reorder(t, s, strat::CommonFace)
     @assert numhits == 3
     @assert all(J .!= -1)
 
-    K = zeros(Int,3)
+    K = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if I[j] == i
@@ -130,7 +130,7 @@ function reorder(t, s, strat::CommonFace)
         end
     end
 
-    L = zeros(Int,3)
+    L = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if J[j] == i
