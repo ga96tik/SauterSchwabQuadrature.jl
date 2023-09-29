@@ -1,15 +1,39 @@
 using SauterSchwabQuadrature
-
-using LinearAlgebra
 using Test
 
-include("parametric_kernel_generator.jl")
+using LinearAlgebra
+using StaticArrays
+using CompScienceMeshes
+using JuliaFormatter
 
-include("local_space.jl")
-include("numquad.jl")
-include("verificationintegral.jl")
+# --- testsets
+@testset "Testing SauterSchwabQuadrature functionality" begin
 
-include("test_cf_p_verification.jl")
-include("test_ce_p_verification.jl")
-include("test_cv_p_verification.jl")
-include("test_pd_p_verification.jl")
+    @testset "Triangular " begin
+
+        include("parametric_kernel_generator.jl")
+        include("local_space.jl")
+        include("numquad.jl")
+        include("verificationintegral.jl")
+
+        include("test_reordering.jl")
+        include("test_cf_tr.jl")
+        include("test_ce_tr.jl")
+        include("test_cv_tr.jl")
+        include("test_pd_tr.jl")
+    end
+
+    @testset "Quadrilateral " begin
+
+        include("quadrilateral_defs.jl")
+
+        include("test_cf_quad.jl")
+        include("test_ce_quad.jl")
+        include("test_cv_quad.jl")
+    end
+
+    @testset "Test formatting of files" begin
+        pkgpath = pkgdir(SauterSchwabQuadrature)   # path of this package including name
+        @test format(pkgpath, overwrite=false)     # check whether files are formatted according to the .JuliaFormatter.toml 
+    end
+end

@@ -1,20 +1,19 @@
 using Documenter, SauterSchwabQuadrature
 
-makedocs(
+DocMeta.setdocmeta!(SauterSchwabQuadrature, :DocTestSetup, :(using SauterSchwabQuadrature); recursive=true)
+
+makedocs(;
     modules=[SauterSchwabQuadrature],
-    doctest=false,
-    sitename="SauterSchwabQuadrature",
+    sitename="SauterSchwabQuadrature.jl",
+    format=Documenter.HTML(;
+        prettyurls=get(ENV, "CI", "false") == "true", canonical="https://ga96tik.github.io/SauterSchwabQuadrature.jl", edit_link="master", assets=String[]
+    ),
+    pages=[
+        "Introduction" => "index.md",
+        "Details" => "details.md",
+        "Manual" => "manual.md",
+        "API Reference" => "apiref.md",
+    ],
 )
 
-# deploydocs(
-#     deps = Deps.pip("pygments","mkdocs", "python-markdown-math"),
-#     repo = "github.com/ga96tik/SauterSchwabQuadrature.jl.git",
-#     julia  = "0.6",
-#     osname = "linux")
-
-deploydocs(
-    # deps = Deps.pip("pygments","mkdocs", "python-markdown-math"),
-    repo = "github.com/ga96tik/SauterSchwabQuadrature.jl.git",
-    # julia  = "0.6",
-    # osname = "linux",
-)
+deploydocs(; repo="github.com/ga96tik/SauterSchwabQuadrature.jl.git", devbranch="master")
