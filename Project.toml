@@ -9,7 +9,7 @@ StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 
 [compat]
 StaticArrays = "0.12, 1"
-FastGaussQuadrature = "0.5"
+FastGaussQuadrature = "0.5, 1"
 julia = "0.7, 1"
 
 [extras]
