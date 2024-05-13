@@ -7,45 +7,45 @@ using LinearAlgebra
     point(-0.9423169199664047, 0.32954812598003336, -0.011695233370427325),
     point(-0.9551397067786591, 0.2847288579921698, -0.00779682224695155),
     point(-0.9238795325109631, 0.382683432365871, 3.0782976471689056e-18),
-    )
+)
 
 σ = simplex(
     point(-0.9807852804031678, 0.19509032201644239, -7.632783294297951e-17),
     point(-0.9238795325109631, 0.38268343236587105, -1.7210136298535816e-16),
     point(-0.9551397067786591, 0.2847288579921698, -0.00779682224695155),
-    )
+)
 
 τ2 = simplex(
-point(-0.9238795325109631, 0.382683432365871, 3.0782976471689056e-18),
-point(-0.9423169199664047, 0.32954812598003336, -0.011695233370427325),
-point(-0.9551397067786591, 0.2847288579921698, -0.00779682224695155),
-    )
+    point(-0.9238795325109631, 0.382683432365871, 3.0782976471689056e-18),
+    point(-0.9423169199664047, 0.32954812598003336, -0.011695233370427325),
+    point(-0.9551397067786591, 0.2847288579921698, -0.00779682224695155),
+)
 
 σ2 = simplex(
-point(-0.9238795325109631, 0.38268343236587105, -1.7210136298535816e-16),
-point(-0.9807852804031678, 0.19509032201644239, -7.632783294297951e-17),
-point(-0.9551397067786591, 0.2847288579921698, -0.00779682224695155),
-    )
+    point(-0.9238795325109631, 0.38268343236587105, -1.7210136298535816e-16),
+    point(-0.9807852804031678, 0.19509032201644239, -7.632783294297951e-17),
+    point(-0.9551397067786591, 0.2847288579921698, -0.00779682224695155),
+)
 
 τ3 = simplex(
     point(-0.9551397067786591, 0.2847288579921698, -0.00779682224695155),
     point(-0.9423169199664047, 0.32954812598003336, -0.011695233370427325),
     point(-0.9238795325109631, 0.382683432365871, 3.0782976471689056e-18),
-    )
+)
 
 σ3 = simplex(
     point(-0.9551397067786591, 0.2847288579921698, -0.00779682224695155),
     point(-0.9807852804031678, 0.19509032201644239, -7.632783294297951e-17),
     point(-0.9238795325109631, 0.38268343236587105, -1.7210136298535816e-16),
-    )
+)
 
 
 ϕ = BEAST.RTRefSpace{Float64}()
 
-function integrand(x,y)
-    R = norm(x-y)
+function integrand(x, y)
+    R = norm(x - y)
     κ = 1.0
-    exp(-im*κ*R)/R/4/pi - 1/R/4/pi
+    exp(-im * κ * R) / R / 4 / pi - 1 / R / 4 / pi
 end
 
 function INTEGRAND(û, v̂)
@@ -60,15 +60,14 @@ end
 
 results = []
 for nodes in 1:20
-    ce = SauterSchwabQuadrature.CommonEdge(
-        SauterSchwabQuadrature._legendre(nodes, 0.0, 1.0))
+    ce = SauterSchwabQuadrature.CommonEdge(SauterSchwabQuadrature._legendre(nodes, 0.0, 1.0))
     result = SauterSchwabQuadrature.sauterschwab_parameterized(INTEGRAND, ce)
     push!(results, result)
 end
 
 errors = abs.((results .- results[end]) / results[end])
-import Plots
-Plots.plot(log10.(abs.(errors[1:end-1])))
+using Plots: Plots
+Plots.plot(log10.(abs.(errors[1:(end - 1)])))
 
 
 p1 = point(0.0, 0.0, 0.0) # the same for both quads
@@ -125,10 +124,9 @@ sK = singularKernel(q1, q2)
 
 results = []
 for nodes in 1:20
-    ce = SauterSchwabQuadrature.CommonEdge(
-        SauterSchwabQuadrature._legendre(nodes, 0.0, 1.0))
+    ce = SauterSchwabQuadrature.CommonEdge(SauterSchwabQuadrature._legendre(nodes, 0.0, 1.0))
     result = SauterSchwabQuadrature.sauterschwab_parameterized(sK, ce)
     push!(results, result)
 end
 errors = abs.((results .- results[end]) / results[end])
-Plots.plot(log10.(abs.(errors[1:end-1])))
+Plots.plot(log10.(abs.(errors[1:(end - 1)])))
