@@ -1,5 +1,10 @@
 function reorder(t, s, strat::CommonVertex)
 
+    T = eltype(t[1])
+    tol = 1e3 * eps(T)
+    # tol = 1e5 * eps(T)
+    # tol = sqrt(eps(T))
+
     # Find the permutation P of t and s that make
     # Pt = [P, A1, A2]
     # Ps = [P, B1, B2]
@@ -10,7 +15,7 @@ function reorder(t, s, strat::CommonVertex)
         v = t[i]
         for j in 1:3
             w = s[j]
-            if norm(w - v) < eps(eltype(v)) * 1.0e3
+            if norm(w - v) < tol
                 I[e] = i
                 J[e] = j
                 e += 1
@@ -53,6 +58,11 @@ end
 
 function reorder(t, s, strat::CommonEdge)
 
+    T = eltype(t[1])
+    tol = 1e3 * eps(T)
+    # tol = 1e5 * eps(T)
+    # tol = sqrt(eps(T))
+
     I = zeros(Int, 3)
     J = zeros(Int, 3)
     e = 1
@@ -60,7 +70,7 @@ function reorder(t, s, strat::CommonEdge)
         v = t[i]
         for j in 1:3
             w = s[j]
-            if norm(w - v) < eps(eltype(v)) * 1.0e3
+            if norm(w - v) < tol
                 I[e] = i
                 J[e] = j
                 e += 1
@@ -104,13 +114,18 @@ end
 
 function reorder(t, s, strat::CommonFace)
 
+    T = eltype(t[1])
+    tol = 1e3 * eps(T)
+    # tol = 1e5 * eps(T)
+    # tol = sqrt(eps(T))
+
 
     I = [1, 2, 3]
     J = [-1, -1, -1]
     numhits = 0
     for (i, v) in pairs(t)
         for (j, w) in pairs(s)
-            if norm(w - v) < eps(eltype(v)) * 1.0e3
+            if norm(w - v) < tol
                 J[i] = j
                 numhits += 1
             end
