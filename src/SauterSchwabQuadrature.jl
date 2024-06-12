@@ -5,7 +5,7 @@ module SauterSchwabQuadrature
 using LinearAlgebra
 using StaticArrays
 
-
+using TestItems
 
 # -------- exportet parts
 # types

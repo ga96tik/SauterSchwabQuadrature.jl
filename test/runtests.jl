@@ -37,3 +37,6 @@ using JuliaFormatter
         @test format(pkgpath, overwrite=false)     # check whether files are formatted according to the .JuliaFormatter.toml 
     end
 end
+
+using TestItemRunner
+@run_package_tests
