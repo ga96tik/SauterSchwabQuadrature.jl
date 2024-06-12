@@ -184,29 +184,21 @@ function reorder(t, s, strat::CommonVertexQuad)
         e == 2 && break
     end
 
-    I = circshift([1,2,3,4], 1-I[1])
-    J = circshift([1,2,3,4], 1-J[1])
+    I = circshift([1, 2, 3, 4], 1 - I[1])
+    J = circshift([1, 2, 3, 4], 1 - J[1])
 
     return I, J, nothing, nothing
 end
 
 
 @testitem "reorder CommonVertexQuad" begin
-    t = [
-        [0.0, 0.0, 0.0],
-        [1.0, 0.0, 0.0],
-        [1.0, 1.0, 0.0],
-        [0.0, 1.0, 0.0],]
+    t = [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [1.0, 1.0, 0.0], [0.0, 1.0, 0.0]]
 
-    s = [
-        [0.0, -1.0, 0.0],
-        [-1.0, -1.0, 0.0],
-        [-1.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0],]
+    s = [[0.0, -1.0, 0.0], [-1.0, -1.0, 0.0], [-1.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
 
     quadPW = SauterSchwabQuadrature._legendre(10, 0, 1)
     strat = SauterSchwabQuadrature.CommonVertexQuad(quadPW)
-    I, J, K, L = SauterSchwabQuadrature.reorder(t,s,strat)
+    I, J, K, L = SauterSchwabQuadrature.reorder(t, s, strat)
 
     @show I
     @show J
@@ -237,16 +229,16 @@ function reorder(t, s, strat::CommonEdgeQuad)
         e == 3 && break
     end
 
-    if mod1(I[1]+1,4) == I[2]
-        I = circshift([1,2,3,4], 1-I[1])
+    if mod1(I[1] + 1, 4) == I[2]
+        I = circshift([1, 2, 3, 4], 1 - I[1])
     else
-        I = circshift([4,3,2,1], 1-(5-I[1]))
+        I = circshift([4, 3, 2, 1], 1 - (5 - I[1]))
     end
 
-    if mod1(J[1]+1,4) == J[2]
-        J = circshift([1,2,3,4], 1-J[1])
+    if mod1(J[1] + 1, 4) == J[2]
+        J = circshift([1, 2, 3, 4], 1 - J[1])
     else
-        J = circshift([4,3,2,1], 1-(5-J[1]))
+        J = circshift([4, 3, 2, 1], 1 - (5 - J[1]))
     end
 
     # append!(I, setdiff([1, 2, 3, 4], I))
@@ -256,21 +248,13 @@ function reorder(t, s, strat::CommonEdgeQuad)
 end
 
 @testitem "reorder CommonEdgeQuad" begin
-    t = [
-        [0.0, 0.0, 0.0],
-        [1.0, 0.0, 0.0],
-        [1.0, 1.0, 0.0],
-        [0.0, 1.0, 0.0],]
+    t = [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [1.0, 1.0, 0.0], [0.0, 1.0, 0.0]]
 
-    s = [
-        [0.0, -1.0, 0.0],
-        [1.0, -1.0, 0.0],
-        [1.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0],]
+    s = [[0.0, -1.0, 0.0], [1.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
 
     quadPW = SauterSchwabQuadrature._legendre(10, 0, 1)
     strat = SauterSchwabQuadrature.CommonEdgeQuad(quadPW)
-    I, J, _, _ = SauterSchwabQuadrature.reorder(t,s,strat)
+    I, J, _, _ = SauterSchwabQuadrature.reorder(t, s, strat)
 
     @show I
     @show J
@@ -304,24 +288,16 @@ end
 
 
 @testitem "reorder CommonFaceQuad" begin
-    t = [
-        [0.0, 0.0, 0.0],
-        [1.0, 0.0, 0.0],
-        [1.0, 1.0, 0.0],
-        [0.0, 1.0, 0.0],]
+    t = [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [1.0, 1.0, 0.0], [0.0, 1.0, 0.0]]
 
-    s = [
-        [1.0, 1.0, 0.0],
-        [0.0, 1.0, 0.0],
-        [0.0, 0.0, 0.0],
-        [1.0, 0.0, 0.0],]
+    s = [[1.0, 1.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 0.0], [1.0, 0.0, 0.0]]
 
     quadPW = SauterSchwabQuadrature._legendre(10, 0, 1)
     strat = SauterSchwabQuadrature.CommonFaceQuad(quadPW)
-    I, J, _, _ = SauterSchwabQuadrature.reorder(t,s,strat)
+    I, J, _, _ = SauterSchwabQuadrature.reorder(t, s, strat)
 
     @show I
     @show J
 
-    @test J == [3,4,1,2]
+    @test J == [3, 4, 1, 2]
 end
