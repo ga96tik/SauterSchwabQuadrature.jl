@@ -22,6 +22,7 @@ using JuliaFormatter
         include("test_cv_tr.jl")
         include("test_pd_tr.jl")
         include("test_reorder_forward.jl")
+        include("test_reorder_bang.jl")
     end
 
     @testset "Quadrilateral " begin

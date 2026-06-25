@@ -1,4 +1,4 @@
-function reorder(t, s, strat::CommonVertex)
+function reorder!(I, J, K, L, t, s, strat::CommonVertex)
 
     T = eltype(t[1])
     tol = 1e3 * eps(T)
@@ -8,8 +8,6 @@ function reorder(t, s, strat::CommonVertex)
     # Find the permutation P of t and s that make
     # Pt = [P, A1, A2]
     # Ps = [P, B1, B2]
-    I = zeros(Int, 1)
-    J = zeros(Int, 1)
     e = 1
     for i in 1:3
         v = t[i]
@@ -25,14 +23,25 @@ function reorder(t, s, strat::CommonVertex)
         e == 2 && break
     end
 
-    append!(I, setdiff([1, 2, 3], I))
-    append!(J, setdiff([1, 2, 3], J))
+    e = 2
+    for i in 1:3
+        if i != I[1]
+            I[e] = i
+            e += 1
+        end
+    end
+
+    e = 2
+    for j in 1:3
+        if j != J[1]
+            J[e] = j
+            e += 1
+        end
+    end
 
     # # inverse permutations
     # K = indexin([1,2,3], I)
     # L = indexin([1,2,3], J)
-
-    K = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if I[j] == i
@@ -42,7 +51,6 @@ function reorder(t, s, strat::CommonVertex)
         end
     end
 
-    L = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if J[j] == i
@@ -55,16 +63,22 @@ function reorder(t, s, strat::CommonVertex)
     return I, J, K, L
 end
 
+function reorder(t, s, strat::Union{CommonVertex,CommonEdge,CommonFace})
+    I = Vector{Int}(undef, 3)
+    J = Vector{Int}(undef, 3)
+    K = Vector{Int}(undef, 3)
+    L = Vector{Int}(undef, 3)
+    return reorder!(I, J, K, L, t, s, strat)
+end
 
-function reorder(t, s, strat::CommonEdge)
+
+function reorder!(I, J, K, L, t, s, strat::CommonEdge)
 
     T = eltype(t[1])
     tol = 1e3 * eps(T)
     # tol = 1e5 * eps(T)
     # tol = sqrt(eps(T))
 
-    I = zeros(Int, 3)
-    J = zeros(Int, 3)
     e = 1
     for i in 1:3
         v = t[i]
@@ -78,17 +92,28 @@ function reorder(t, s, strat::CommonEdge)
             end
         end
     end
-    I[3] = setdiff([1, 2, 3], I[1:2])[1]
-    J[3] = setdiff([1, 2, 3], J[1:2])[1]
+    for i in 1:3
+        if i != I[1] && i != I[2]
+            I[3] = i
+            break
+        end
+    end
+    for j in 1:3
+        if j != J[1] && j != J[2]
+            J[3] = j
+            break
+        end
+    end
 
-    I = circshift(I, -1)
-    J = circshift(J, -1)
+    i1, i2, i3 = I[1], I[2], I[3]
+    j1, j2, j3 = J[1], J[2], J[3]
+    I[1], I[2], I[3] = i2, i3, i1
+    J[1], J[2], J[3] = j2, j3, j1
 
     # # inverse permutations
     # K = indexin([1,2,3], I)
     # L = indexin([1,2,3], J)
 
-    K = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if I[j] == i
@@ -98,7 +123,6 @@ function reorder(t, s, strat::CommonEdge)
         end
     end
 
-    L = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if J[j] == i
@@ -111,8 +135,7 @@ function reorder(t, s, strat::CommonEdge)
     return I, J, K, L
 end
 
-
-function reorder(t, s, strat::CommonFace)
+function reorder!(I, J, K, L, t, s, strat::CommonFace)
 
     T = eltype(t[1])
     tol = 1e3 * eps(T)
@@ -120,8 +143,12 @@ function reorder(t, s, strat::CommonFace)
     # tol = sqrt(eps(T))
 
 
-    I = [1, 2, 3]
-    J = [-1, -1, -1]
+    I[1] = 1
+    I[2] = 2
+    I[3] = 3
+    J[1] = -1
+    J[2] = -1
+    J[3] = -1
     numhits = 0
     for (i, v) in pairs(t)
         for (j, w) in pairs(s)
@@ -133,9 +160,10 @@ function reorder(t, s, strat::CommonFace)
     end
 
     @assert numhits == 3
-    @assert all(J .!= -1)
+    for j in 1:3
+        @assert J[j] != -1
+    end
 
-    K = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if I[j] == i
@@ -144,8 +172,6 @@ function reorder(t, s, strat::CommonFace)
             end
         end
     end
-
-    L = zeros(Int, 3)
     for i in 1:3
         for j in 1:3
             if J[j] == i
@@ -158,17 +184,14 @@ function reorder(t, s, strat::CommonFace)
     return I, J, K, L
 end
 
-
 # Find the permutation P of t and s that make
 # Pt = [P, A1, A2, A3]
 # Ps = [P, B1, B2, B3]
-function reorder(t, s, strat::CommonVertexQuad)
+function reorder!(I, J, K, L, t, s, strat::CommonVertexQuad)
     T = eltype(eltype(t))
     T = eltype(t[1])
     tol = 1e3 * eps(T)
 
-    I = zeros(Int, 1)
-    J = zeros(Int, 1)
     e = 1
     for i in 1:4
         v = t[i]
@@ -184,10 +207,20 @@ function reorder(t, s, strat::CommonVertexQuad)
         e == 2 && break
     end
 
-    I = circshift([1, 2, 3, 4], 1 - I[1])
-    J = circshift([1, 2, 3, 4], 1 - J[1])
+    i1 = I[1]
+    j1 = J[1]
+    for k in 1:4
+        I[k] = mod1(i1 + k - 1, 4)
+        J[k] = mod1(j1 + k - 1, 4)
+    end
 
     return I, J, nothing, nothing
+end
+
+function reorder(t, s, strat::Union{CommonVertexQuad,CommonEdgeQuad,CommonFaceQuad})
+    I = Vector{Int}(undef, 4)
+    J = Vector{Int}(undef, 4)
+    return reorder!(I, J, nothing, nothing, t, s, strat)
 end
 
 
@@ -208,12 +241,10 @@ end
 end
 
 
-function reorder(t, s, strat::CommonEdgeQuad)
+function reorder!(I, J, K, L, t, s, strat::CommonEdgeQuad)
     T = eltype(t[1])
     tol = 1e3 * eps(T)
 
-    I = zeros(Int, 2)
-    J = zeros(Int, 2)
     e = 1
     for i in 1:4
         v = t[i]
@@ -229,16 +260,27 @@ function reorder(t, s, strat::CommonEdgeQuad)
         e == 3 && break
     end
 
-    if mod1(I[1] + 1, 4) == I[2]
-        I = circshift([1, 2, 3, 4], 1 - I[1])
+    i1, i2 = I[1], I[2]
+    j1, j2 = J[1], J[2]
+
+    if mod1(i1 + 1, 4) == i2
+        for k in 1:4
+            I[k] = mod1(i1 + k - 1, 4)
+        end
     else
-        I = circshift([4, 3, 2, 1], 1 - (5 - I[1]))
+        for k in 1:4
+            I[k] = mod1(i1 - k + 1, 4)
+        end
     end
 
-    if mod1(J[1] + 1, 4) == J[2]
-        J = circshift([1, 2, 3, 4], 1 - J[1])
+    if mod1(j1 + 1, 4) == j2
+        for k in 1:4
+            J[k] = mod1(j1 + k - 1, 4)
+        end
     else
-        J = circshift([4, 3, 2, 1], 1 - (5 - J[1]))
+        for k in 1:4
+            J[k] = mod1(j1 - k + 1, 4)
+        end
     end
 
     # append!(I, setdiff([1, 2, 3, 4], I))
@@ -264,12 +306,18 @@ end
 end
 
 
-function reorder(t, s, strat::CommonFaceQuad)
+function reorder!(I, J, K, L, t, s, strat::CommonFaceQuad)
     T = eltype(eltype(t))
     tol = 1e3 * eps(T)
 
-    I = [1, 2, 3, 4]
-    J = [-1, -1, -1, -1]
+    I[1] = 1
+    I[2] = 2
+    I[3] = 3
+    I[4] = 4
+    J[1] = -1
+    J[2] = -1
+    J[3] = -1
+    J[4] = -1
     numhits = 0
     for (i, v) in pairs(t)
         for (j, w) in pairs(s)
@@ -281,11 +329,12 @@ function reorder(t, s, strat::CommonFaceQuad)
     end
 
     @assert numhits == 4
-    @assert all(J .!= -1)
+    for j in 1:4
+        @assert J[j] != -1
+    end
 
     return I, J, nothing, nothing
 end
-
 
 @testitem "reorder CommonFaceQuad" begin
     t = [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [1.0, 1.0, 0.0], [0.0, 1.0, 0.0]]
@@ -362,7 +411,7 @@ function genI(i1, i2)
             return (2, 1, 3)
         end
     end
-    return (1,2,3)
+    return (1, 2, 3)
 end
 
 function reorder_forward(t, s, strat::CommonEdge)
@@ -448,4 +497,3 @@ function reorder_forward(t, s, strat::CommonFace)
     return I, assign(i1, i2, i3, j1, j2, j3)
 end
 reorder_forward(a, b, c) = reorder(a, b, c)[1:2]
-
